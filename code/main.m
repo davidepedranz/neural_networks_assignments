@@ -1,8 +1,5 @@
 clf; close; close; clear;
 
-% cluster start
-parpool('local', 8);
-
 % settings
 repetitions = 200;
 alphas = 0.75:0.125:3;
@@ -31,20 +28,16 @@ title('title');
 xlabel('Alpha = P / N');
 ylabel('Success Rate');
 
-% cluster shutdown
-delete(gcp('nocreate'));
-
-
 function [success_rate, results] = run_experiment(alpha, N, epochs, repetitions)
-    fprintf('Running experiment for alpha = %f ... ', alpha)
+    fprintf('Running experiment for alpha = %f ... ', alpha);
     results = zeros(repetitions, 1);
     parfor i = 1:repetitions
         P = ceil(alpha * N);
         [X, y] = generate_dataset(P, N);
         w = train_perceptron(X, y, epochs);
-        success = all(iff(X * w < 0, -1, 1) == y);
+        success = all(iff(X * w <= 0, -1, 1) == y);
         results(i) = success;
     end
     success_rate = sum(results) / length(results);
-    fprintf('success_rate = %f \n', success_rate)
+    fprintf('success_rate = %f \n', success_rate);
 end

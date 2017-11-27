@@ -10,7 +10,9 @@ N = 20;
 epochs = 100;
 
 % run all experiments
+tic
 success_rates = arrayfun(@(alpha) run_experiment(alpha, N, epochs, repetitions), alphas);
+toc
 
 % alpha_min = 0.75;
 % alpha_max = 3;

@@ -10,21 +10,26 @@ function w = train_perceptron(X, y, epochs)
     
     w = zeros(N, 1);
     
-    % NB: we do not explicitly check the termination of the training for
-    % finding some weights that achive 100% correct classification, since
-    % it is more expensive than training for some extra epochs...
-    % if the weights are already correct, they will not be updated anymore
+    % repeat training for any epochs
     for epoch = 1:epochs
+        
+       % iterate on examples
        for i = 1:P
            example = X(i, :);
            label = y(i);
-           
+
            if (example * w) * label <= 0
                w = w + (example' * label) / N;
            else
                % no-op: the classification for the current example was
                % correct, no need to update the weights
            end
+       end
+
+       % exit if all examples are correctly classified
+       classification = (X * w) .* y;
+       if all(classification > 0)
+            break;
        end
     end
 end

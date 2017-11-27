@@ -5,5 +5,5 @@ function [X, y] = generate_dataset(P, N)
     % a feature, and a vector y with binary labels for each point.
     
     X = randn(P, N);
-    y = arrayfun(@(x) iff(x < 0.5, -1, 1), rand(P, 1));
+    y = iff(rand(P, 1) < 0.5, -1, 1);
 end

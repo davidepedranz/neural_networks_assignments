@@ -1,32 +1,31 @@
 clf; close; close; clear;
 
+
 % settings
 repetitions = 200;
-alphas = 0.75:0.125:3;
-N = 50;
+alphas = [1.75 2.25];
+N = (10:1:50);
 epochs = 100;
 
-% run all experiments
-tic
-success_rates = arrayfun(@(alpha) run_experiment(alpha, N, epochs, repetitions), alphas);
-toc
+for i = (1 : length(alphas))
+   for j = (1 : length(N))
+       success_rates(i, j) = run_experiment(alphas(i), N(j), epochs, repetitions);
+       
+   end
+end
 
-% alpha_min = 0.75;
-% alpha_max = 3;
-% alpha_step = 0.25; 
-% steps = (alpha_max - alpha_min) / alpha_step;
-% 
-% success_rates = zeros(1, steps);
-% for i = 1:steps
-%     alpha = alpha_min + alpha_step * i;
-%     success_rates(i) = run_experiment(alpha, N, epochs, repetitions);
-% end
-
-% plot
-plot(alphas, success_rates);
+figure;
+hold on;
+plot(N, success_rates(1, :));
 title('title');
-xlabel('Alpha = P / N');
+xlabel('N = P / Alpha');
 ylabel('Success Rate');
+plot(N, success_rates(2, :));
+title('title');
+xlabel('N = P / Alpha');
+ylabel('Success Rate');
+legend('alpha = 1.75', 'alpha = 2.25');
+hold off;
 
 function [success_rate, results] = run_experiment(alpha, N, epochs, repetitions)
     fprintf('Running experiment for alpha = %f ... ', alpha);

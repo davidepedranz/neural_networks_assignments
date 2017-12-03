@@ -2,7 +2,7 @@ clf; close; close; clear;
 
 
 % settings
-repetitions = 200;
+repetitions = 500;
 alphas = 0.75:0.125:3;
 N = 50;
 epochs = 100;

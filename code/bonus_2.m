@@ -41,7 +41,7 @@ function [success_rate, results] = run_experiment(alpha, N, epochs, repetitions,
              P = ceil(alpha * N);
              [X, y] = generate_dataset(P, N);
         else
-            P = ceil(alpha * N);
+            P = ceil(alpha * N+1);
             [X, y] = generate_dataset(P, N+1);
         end
         

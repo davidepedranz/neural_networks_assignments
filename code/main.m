@@ -8,10 +8,10 @@
 clf; close; clear;
 
 % settings
-ns = [100, 300, 500];                               % N
-alphas = [0.75:0.25:1.5, 1.6:0.1:1.9, 2:0.25:3];    % alpha
-repetitions = 100;                                  % n_D
-epochs = 200;                                       % n_max
+ns = [20, 50, 100, 500, 1000];                              % N
+alphas = [0.75:0.25:1.5, 1.55:0.05:2.2, 2.25:0.25:3];       % alpha
+repetitions = 100;                                          % n_D
+epochs = 200;                                               % n_max
 
 % fix seed for the random number generator
 rng(0);

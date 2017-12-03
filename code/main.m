@@ -5,7 +5,7 @@
 %-------------------------------------------------------
 
 % clean the workspace
-clf; close; clear;
+clf; close; close; clear;
 
 % settings
 ns = [20, 50, 100, 500, 1000];                              % N
@@ -38,13 +38,30 @@ else
     save('results/base.mat', 'success_rates');
 end
 
-% plot
-p = plot(alphas, success_rates);
+% plot (base)
+figure;
+index = find(ns == 500);
+plot(alphas, success_rates(:, index));
+title('Storage Success Rate (N = 500)');
+xlabel('Alpha = P / N');
+ylabel('Success Rate');
+saveas(gcf, '../report/figures/base', 'png');
+
+% plot (bonus)
+mrk={'-o','-s','-*','-v','-+','-^'};
+figure;
+box on;
+hold on;
+for n=1:length(ns)
+    set(gca, 'LineStyleOrder', mrk(mod(n, length(mrk))));
+    plot(alphas, success_rates(:, n));
+end
+hold off;
 title('Storage Success Rate');
 xlabel('Alpha = P / N');
 ylabel('Success Rate');
 legend(cellstr(num2str(ns', 'N=%-d')));
-saveas(p, 'results/base', 'png');
+saveas(gcf, '../report/figures/bonus_1', 'png');
 
 % run an experiment for a fixes alpha and N multiple times
 function [success_rate, results] = run_experiment(alpha, N, epochs, repetitions)

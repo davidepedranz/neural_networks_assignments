@@ -1,13 +1,13 @@
-function w = train_perceptron(X, y, epochs, c, theta)
+function w = train_perceptron(X, y, epochs, c, hom)
     %%TRAIN_PERCEPTRON Train a perceptron on the dataset X, y for #epochs.
     % This implementation uses sequential training.
     
     switch nargin
         case 3
             c = 0;
-            theta = 0;
+            hom = true;
         case 4
-            theta = 0;
+            hom = true;
     end
     
     assert(size(X, 1) == size(y, 1));
@@ -16,10 +16,8 @@ function w = train_perceptron(X, y, epochs, c, theta)
     N = size(X, 2);
     P = size(X, 1);
     
+    % in case of inequal
     w = zeros(N, 1);
-    if theta
-        w = [w theta];
-    end
     
     % repeat training for any epochs
     for epoch = 1:epochs
@@ -29,7 +27,7 @@ function w = train_perceptron(X, y, epochs, c, theta)
            example = X(i, :);
            label = y(i);
 
-           if not(theta)
+           if hom
                if (example * w) * label <= c
                     w = w + (example' * label) / N;
                else
@@ -37,8 +35,8 @@ function w = train_perceptron(X, y, epochs, c, theta)
                % correct, no need to update the weights
                end
            else
-               example = [example -1];
-               if (example * w - theta) * label <= c
+               example(N) = -1;
+               if ((example * w) - w(N)) * label <= c
                     w = w + (example' * label) / N;
                else
                % no-op: the classification for the current example was

@@ -6,13 +6,13 @@ repetitions = 200;
 alphas = 0.75:0.125:3;
 N = 50;
 epochs = 100;
-c_1 = 5;
-c_2 = 0;
+c_1 = 0.01;
+c_2 = 
 homogeneity = true;
 
 tic
-success_rates_wc = arrayfun(@(alpha) run_experiment(alpha, N, epochs, repetitions, c_1, homogeneity), alphas);
-success_rates_woc = arrayfun(@(alpha) run_experiment(alpha, N, epochs, repetitions, c_2, false), alphas);
+success_rates_wc = arrayfun(@(alpha) run_experiment(alpha, N, epochs, repetitions, c, homogeneity), alphas);
+success_rates_woc = arrayfun(@(alpha) run_experiment(alpha, N, epochs, repetitions, 0, homogeneity), alphas);
 toc
 
 figure;
@@ -22,7 +22,7 @@ plot(alphas, success_rates_woc);
 title('Success rate over alpha');
 xlabel('Alpha = P / N');
 ylabel('Success rate');
-legend(sprintf("c = %0.2f", c_1) , sprintf("c = %0.2f", c_2));
+legend(sprintf("c = %0.2f", c) , 'c = 0.00');
 hold off;
 
 function [success_rate, results] = run_experiment(alpha, N, epochs, repetitions, c, hom)

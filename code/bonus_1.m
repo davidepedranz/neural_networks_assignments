@@ -10,7 +10,6 @@ epochs = 100;
 for i = (1 : length(alphas))
    for j = (1 : length(N))
        success_rates(i, j) = run_experiment(alphas(i), N(j), epochs, repetitions);
-       
    end
 end
 

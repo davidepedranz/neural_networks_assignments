@@ -62,18 +62,3 @@ xlabel('Alpha = P / N');
 ylabel('Success Rate');
 legend(cellstr(num2str(ns', 'N=%-d')));
 saveas(gcf, '../report/figures/bonus_1', 'png');
-
-% run an experiment for a fixes alpha and N multiple times
-function [success_rate, results] = run_experiment(alpha, N, epochs, repetitions)
-    fprintf('Running experiment for alpha=%.2f, N=%3d ... ', alpha, N);
-    results = zeros(repetitions, 1);
-    parfor i = 1:repetitions
-        P = ceil(alpha * N);
-        [X, y] = generate_dataset(P, N);
-        w = train_perceptron(X, y, epochs);
-        success = all(iff(X * w <= 0, -1, 1) == y);
-        results(i) = success;
-    end
-    success_rate = sum(results) / length(results);
-    fprintf('success_rate = %f \n', success_rate);
-end

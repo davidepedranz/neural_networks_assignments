@@ -8,7 +8,7 @@ function w = train_perceptron(X, y, epochs, c)
     N = size(X, 2);
     P = size(X, 1);
     
-    % in case of inequal
+    % in case o f inequal
     w = zeros(N, 1);
     
     % repeat training for any epochs

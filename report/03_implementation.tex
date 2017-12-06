@@ -1,8 +1,37 @@
-% \section{Developed architecture / System design / Implementation / ...}
+\section{Implementation}
 
-% \begin{itemize}
-% \item describe everything you yourself did (as opposed to the fundamentals section, which explains what you built on)
-% \item explain the mathematical framework (if any)
-% \item explain your model
-% \item describe the developed system/algorithm/method
-% \end{itemize}
+\subsection{Dataset Generation}
+The first step of the experiment is to generate an artificial dataset with $P$ random N-dimensional feature vectors and binary labels $\mathcal{D} = \{ \xi^\mu, S^\mu \,|\, \xi^\mu \in \mathds{R}^N, S^\mu \in \{+1, -1\} \}_{\mu=1}^P$.
+The feature vectors $\xi^\mu$ have independent random components $\xi_j^\mu \sim \mathcal{N}(0, 1)$ and are generated using the \texttt{randn} command in Matlab.
+The labels $S^\mu$ are assume the values $\{+1, -1\}$ with equal probability of $1/2$.
+
+\begin{lstlisting}[language=Matlab]
+  function [X, y] = generate_dataset(P, N)
+      X = randn(P, N);
+      y = iff(rand(P, 1) < 0.5, -1, 1);
+  end
+\end{lstlisting}
+
+\subsection{Perceptron Training}
+The next step is to use the Rosenblatt algorithm to implement and train a perceptron on the generated dataset.
+The Rosenblatt algorithm is a sequential procedure that learns the weights of the perceptron from the examples.
+The weights are initialized to zero, then the training examples are presented one by one to the perceptron for a given number of epochs (iterations).
+If the example is correctly classified according to the current weights, no update is performed;
+if the example if wrongly classified, the weights are updated according to the following rule:
+\begin{gather*} 
+    w(0) = 0, \\
+    w(t + 1) =  \begin{cases}
+                    w(t) + \frac{1}{N} \xi^{\mu(t)} S^{\mu(t)} &\text{if $E^{\mu(t)} \leq 0$}\\
+                    w(t) &\text{else}
+                \end{cases},
+\end{gather*}
+where $E^{\mu(t)} = w(t) \xi^{\mu(t)} S^{\mu(t)}$, $t = 1, 2, ...$ represents the current time step and $\mu(t) = 1, 2, ..., P, 1, 2, ...$ identifies the current example.
+The algorithm is stopped either when $E^\mu > 0$ for all examples in the dataset or the maximum number of epochs $n_{max}$ is reached.
+
+\subsection{Experiments}
+For a fixed value of $P$ and $N$, $n_D$ independent datasets are generated.
+A new perceptron is trained on each dataset for at most $n_{max}$ epochs.
+For each dataset, we compute the rate fraction $Q_{l.s.}$ of successful runs, where a run is successful if the perceptron correctly classifies each example in the dataset at the end of the training phase.
+
+Multiple experiments are run for different values of $P$ and $N$ in order to compute $Q_{l.s.}$ as a function of $\alpha = P / N$.
+In other words, we study the behaviour of the perceptron as a function of the rate between the number of examples and the dimension of the input.

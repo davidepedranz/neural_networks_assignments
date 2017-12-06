@@ -9,9 +9,8 @@ clf; close; close; close; close; close; close; close; close; close; close;
 clear;
 
 % settings
-epochs = [50, 100, 200];                                  % n_max
-% ns = [20, 50, 100, 500, 1000];                              % N
-ns = [100, 200, 500];
+epochs = [50, 100, 200];                                    % n_max
+ns = [100, 200, 500];                                       % N
 alphas = [0.75:0.25:1.5, 1.55:0.05:1.95, 2:0.25:3];         % alpha
 repetitions = 200;                                          % n_D
 
@@ -104,27 +103,4 @@ function plot_multiple_n(success_rates, alphas, epochs, ns, mrk)
     ylabel('Success Rate');
     legend(cellstr(num2str(ns', 'N=%-d')));
     save_for_report('multiple_n');
-end
-
-function save_for_report(name)
-
-    % reduce white spaces
-    ax = gca;
-    outerpos = ax.OuterPosition;
-    ti = ax.TightInset; 
-    left = outerpos(1) + ti(1);
-    bottom = outerpos(2) + ti(2);
-    ax_width = outerpos(3) - ti(1) - ti(3);
-    ax_height = outerpos(4) - ti(2) - ti(4);
-    ax.Position = [left bottom ax_width ax_height];
-
-    % make size of PDF equal to the plot
-    fig = gcf;
-    fig.PaperPositionMode = 'auto';
-    fig_pos = fig.PaperPosition;
-    fig.PaperSize = [fig_pos(3) fig_pos(4)];
-
-    % save to PDF
-    print(gcf, strcat('../report/figures/', name), '-dpdf');
-    print(gcf, strcat('results/', name), '-dpdf');
 end

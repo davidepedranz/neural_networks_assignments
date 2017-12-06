@@ -11,7 +11,7 @@ function [success_rate, results] = run_experiment(alpha, N, epochs, repetitions,
     end
 
     % run the experiments
-    fprintf('Running experiment for alpha=%.2f, N=%3d ... ', alpha, N);
+    fprintf('Running experiment for alpha=%.2f, N=%3d, epochs=%d, c=%1.2f ... ', alpha, N, epochs, c);
     results = zeros(repetitions, 1);
     parfor i = 1:repetitions
         

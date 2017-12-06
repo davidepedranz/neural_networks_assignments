@@ -2,7 +2,7 @@
 clear;
 
 % settings
-N = 200;                      % N
+N = 50;                      % N
 alphas = 0.75:0.125:3;       % alpha
 repetitions = 100;           % n_D
 epochs = [100, 200, 500, 1000, 2000];               % n_max
@@ -21,13 +21,15 @@ else
     fprintf('Cache not found in "%s"... running the experiments\n', cache);
     
     tic
-    len_learn_rates = length(c);
     len_epochs = length(epochs);
     len_alphas = length(alphas);
-    success_rates = zeros(len_learn_rates, len_alphas);
-    for learn_rate = (1 : len_learn_rates)
+    len_ns = length(ns);
+    success_rates = zeros(len_epochs, len_alphas, len_ns);
+    for epoch = (1 : len_epochs)
         for alpha = (1 : len_alphas)
-                success_rates(learn_rate, alpha) = run_experiment(alphas(alpha), N, epochs(2), repetitions, c(learn_rate));
+            for n = (1 : len_ns)
+                success_rates(epoch, alpha, n) = run_experiment(alphas(alpha), ns(n), epochs(epoch), repetitions);
+            end
         end
     end
     toc
@@ -37,11 +39,10 @@ end
 
 figure;
 hold on;
-for plot_n = (1:size(success_rates,1))
-    plot(alphas, success_rates(plot_n, :));
-    legend(sprintf("c%d = %1.1f", plot_n, c(plot_n)));
-end
+plot(alphas, success_rates_wc);
+plot(alphas, success_rates_woc);
 title('Success rate over alpha');
 xlabel('Alpha = P / N');
 ylabel('Success rate');
+legend(sprintf("c = %0.2f", c_1) , sprintf("c = %0.2f", c_2));
 hold off;

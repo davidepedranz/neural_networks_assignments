@@ -1,4 +1,5 @@
-% clf; close; close; 
+
+clf; close; close; 
 clear;
 
 % settings

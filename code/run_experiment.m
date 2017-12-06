@@ -29,9 +29,10 @@ function [success_rate, results] = run_experiment(alpha, N, epochs, repetitions,
         % train the perceptron
         w = train_perceptron(X, y, epochs, c);
         
-        % TODO: check if this should be a zero or c
         % evaluate the performances
-        success = all(iff(X * w <= 0, -1, 1) == y);
+        % all error values tend to c, that's why the success criteria
+        % should be c too
+        success = all(iff(X * w <= c, -1, 1) == y);
         results(i) = success;
     end
     success_rate = sum(results) / length(results);

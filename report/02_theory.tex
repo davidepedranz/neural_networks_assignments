@@ -1,5 +1,33 @@
 \section{Fundamentals / Theory / Basic Information / \ldots}
 \label{sec:fundamentals}
+As briefly mentioned in the introduction the Perceptron is the first tempt to model in a mathematical way
+a neuron and for that reason it is thought to have incoming and outgoing connections. Since it is a standalone
+model the incoming connections are represented by a weighted sum of the input and the only outgoing one represents
+the output of the Perceptron (i.e. the result of the classification). As touched above this model has $N$ incoming connections,
+where $N$ stays for the dimension of the labels' vector $\xi$ taken as an input.\\
+The sign of the dot product between these labels and the vector containing the weights $\mathsf{\bm{w}}$ minus a certain threshold
+$\theta$ is computed and results in the activation (or in the inactivation) of the perceptron (i.e. the result of the classification problem),
+the complete formula is reported below (equation (\ref{perceptron-activation})).
+
+To train the Perceptron we implemented the Rosemblatt's perceptron algorithm (\cite{rosenblatt1958perceptron}), that consists in
+presenting at every step $t$ an input vector $\xi$ to the perceptron, calculate the error as how much the classification was distant from
+the correct labeling $\bm{S}$ (through the formula (\ref{perceptron-error})) and update the values of the weights' vector in case the former
+calculated error is greater than zero (or in a general case $c$ as we will discuss in the bonus).
+
+The weights update consists in increasing (or decreasing )
+
+
+\begin{equation} \label{perceptron-activation}
+    S = sign(\mathsf{\bm{w}} \cdotp \xi) = \pm 1
+\end{equation}
+
+\begin{equation} \label{perceptron-error}
+    E^\mu = \mathsf{\bm{w}} \cdotp \xi^\mu - S^\mu_R
+\end{equation}
+
+\begin{equation} \label{perceptron-weight-update}
+    \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) \bm{\xi}^{v(7)} S^{v(t)}_R
+\end{equation}
 
 \begin{itemize}
 \item describe methods and techniques that build the basis of your work

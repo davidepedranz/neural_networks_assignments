@@ -1,7 +1,6 @@
 \section{Evaluation}
 \label{sec:evaluation}
 
-
 \subsection{Storage Capacity}
 \begin{figure}[t]
 	\centering
@@ -18,7 +17,6 @@ For $\alpha \approx 1.7$, the success rate $Q_{l.s.}$ drops from $1$ to $0$ very
 The value of $\alpha$ for which the function drops is called storage capacity of the perceptron.
 For $N \to \infty$ (very large number of examples) and $n_{max} \to \infty$ (no limit on the maximum number of training epochs), the theoretical storage capacity of the Rosenblatt perceptron is $\alpha = 2$.
 
-
 \subsection{Number of Epochs}
 \begin{figure}[t]
 	\centering
@@ -31,7 +29,6 @@ The difference between the theoretical value and the experimental one are mainly
 \cref{fig:multiple_epochs} gives an experimental proof of this statement:
 for a very small number of epochs (eg. $n_{max} = 10$), the step is close to $\alpha = 1$, while for higher values of epochs the step moves closer and closer to the theoretical value $\alpha = 2$.
 
-
 \subsection{Number of Dimensions}
 \begin{figure}[t]
 	\centering
@@ -40,6 +37,12 @@ for a very small number of epochs (eg. $n_{max} = 10$), the step is close to $\a
 	\label{fig:multiple_n}
 \end{figure}
 
+The theoretical results are valid for $N \to \infty$.
+However, real datasets have a limited number of features.
+\cref{fig:multiple_n} shows the behaviour of the perceptron for different values of $N$.
+For high values of $N$, the shape of the success rate $Q_{l.s.}$ as a function of $\alpha$ is similar to a step function.
+For small values of $N$, the function looks like a smoothed step function:
+the smaller $N$ is, the higher is the smoothing.
 
 \subsection{TODO}
 \begin{itemize}

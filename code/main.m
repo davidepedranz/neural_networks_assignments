@@ -11,9 +11,9 @@ clear;
 % settings
 epochs = [50, 100, 200];                                  % n_max
 % ns = [20, 50, 100, 500, 1000];                              % N
-ns = [100, 200];
-alphas = [0.75:0.25:1.5, 1.55:0.05:2.2, 2.25:0.25:3];       % alpha
-repetitions = 100;                                          % n_D
+ns = [100, 200, 500];
+alphas = [0.75:0.25:1.5, 1.55:0.05:1.95, 2:0.25:3];         % alpha
+repetitions = 200;                                          % n_D
 
 % fix seed for the random number generator
 rng(0);

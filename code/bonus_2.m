@@ -6,43 +6,80 @@ clear;
 N = 200;                      % N
 alphas = 0.75:0.125:3;       % alpha
 repetitions = 100;           % n_D
-epochs = [100, 200, 500, 1000, 2000];               % n_max
-c = [0 0.1:0.2:0.5 1:2:5];
+epochs = [200, 500, 1000, 2000];               % n_max
+c = [0:0.5:1 2];
+c_2 = [0,2];
+
 
 homogeneity = true;
 
 % fix seed for the random number generator
 rng(0);
 
-cache = 'results/bonus_2.mat';
-if (exist(cache, 'file'))
-    fprintf('Loading results from cache "%s"...\n', cache);
-    success_rates = importdata(cache);
+c_cache = 'results/bonus_2_c.mat';
+epoch_cache = 'results/bonus_2_epoch.mat';
+c_epoch_cache = 'results/bonus_2_c_epoch.mat';
+
+if (exist(c_epoch_cache, 'file'))
+    fprintf('Loading results from cache "%s"...\n', c_epoch_cache);
+    c_epoch_success_rates = importdata(c_epoch_cache);
 else
-    fprintf('Cache not found in "%s"... running the experiments\n', cache);
+    c_epoch_success_rates = zeros(2, length(alphas));
+    c_epoch_success_rates(1, :) = arrayfun(@(alpha) run_experiment(alpha, N, epochs(1), repetitions, c_2(1)), alphas);
+    c_epoch_success_rates(2, :) = arrayfun(@(alpha) run_experiment(alpha, N, epochs(3), repetitions, c_2(2)), alphas);
+    
+    save('results/bonus_2_c_epoch.mat', 'c_epoch_success_rates');
+end
+
+
+if (exist(c_cache, 'file'))
+    fprintf('Loading results from cache "%s"...\n', c_cache);
+    c_success_rates = importdata(c_cache);
+else
+    fprintf('Cache not found in "%s"... running the experiments\n', c_cache);
     
     tic
     len_learn_rates = length(c);
     len_epochs = length(epochs);
     len_alphas = length(alphas);
-    success_rates = zeros(len_learn_rates, len_alphas);
+    c_success_rates = zeros(len_learn_rates, len_alphas);
     for learn_rate = (1 : len_learn_rates)
         for alpha = (1 : len_alphas)
-                success_rates(learn_rate, alpha) = run_experiment(alphas(alpha), N, epochs(2), repetitions, c(learn_rate));
+                c_success_rates(learn_rate, alpha) = run_experiment(alphas(alpha), N, epochs(1), repetitions, c(learn_rate));
         end
     end
     toc
 
-    save('results/bonus_2.mat', 'success_rates');
+    save('results/bonus_2_c.mat', 'c_success_rates');
+end
+
+if (exist(epoch_cache, 'file'))
+    fprintf('Loading results from cache "%s"...\n', epoch_cache);
+    epoch_success_rates = importdata(epoch_cache);
+else
+    fprintf('Cache not found in "%s"... running the experiments\n', epoch_cache);
+    
+    tic
+    len_epochs = length(epochs);
+    len_alphas = length(alphas);
+    epoch_success_rates = zeros(len_epochs, len_alphas);
+    for epoch = (1 : len_epochs)
+        for alpha = (1 : len_alphas)
+                epoch_success_rates(epoch, alpha) = run_experiment(alphas(alpha), N, epochs(epoch), repetitions, c(4));
+        end
+    end
+    toc
+
+    save('results/bonus_2_epoch.mat', 'epoch_success_rates');
 end
 
 figure;
 hold on;
-for plot_n = (1:size(success_rates,1))
-    plot(alphas, success_rates(plot_n, :));
-    legend(sprintf("c%d = %1.1f", plot_n, c(plot_n)));
+for plot_n = (1:size(epoch_success_rates,1))
+    plot(alphas, epoch_success_rates(plot_n, :));
 end
 title('Success rate over alpha');
 xlabel('Alpha = P / N');
 ylabel('Success rate');
+legend(cellstr(num2str(epochs', 'epochs=%d')));
 hold off;

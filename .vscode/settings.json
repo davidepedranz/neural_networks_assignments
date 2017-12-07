@@ -5,6 +5,7 @@
         "includegraphics",
         "perceptron",
         "perceptrons",
-        "rosenblatt"
+        "rosenblatt",
+        "subsec"
     ]
 }

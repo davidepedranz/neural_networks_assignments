@@ -1,4 +1,4 @@
-\section{Fundamentals / Theory / Basic Information / \ldots}
+\section{Theory}
 \label{sec:fundamentals}
 As briefly mentioned in the introduction the Perceptron is the first tempt to model in a mathematical way
 a neuron and for that reason it is thought to have incoming and outgoing connections. Since it is a standalone
@@ -9,32 +9,26 @@ The sign of the dot product between these labels and the vector containing the w
 $\theta$ is computed and results in the activation (or in the inactivation) of the perceptron (i.e. the result of the classification problem),
 the complete formula is reported below (equation (\ref{perceptron-activation})).
 
+\begin{equation} \label{perceptron-activation}
+    S = sign(\mathsf{\bm{w}} \cdotp \xi) = \pm 1
+\end{equation}
+
 To train the Perceptron we implemented the Rosemblatt's perceptron algorithm (\cite{rosenblatt1958perceptron}), that consists in
 presenting at every step $t$ an input vector $\xi$ to the perceptron, calculate the error as how much the classification was distant from
 the correct labeling $\bm{S}$ (through the formula (\ref{perceptron-error})) and update the values of the weights' vector in case the former
 calculated error is greater than zero (or in a general case $c$ as we will discuss in the bonus).
 
-The weights update consists in increasing (or decreasing) their previous value by an amount proportional to the error made
-by the perceptron in the classification task. The formula used to computed the values of the updated weight vectors is reported in (equation
-\ref{perceptron-weight-update}).
-
-The learning process (i.e. the presentation of the input and the update of the weights) is iterated till either the perceptron is able to classify correctly
-all the data contained in the training set or it reaches a maximum number of epochs (i.e. iterations).
-
-\begin{equation} \label{perceptron-activation}
-    S = sign(\mathsf{\bm{w}} \cdotp \xi) = \pm 1
-\end{equation}
-
 \begin{equation} \label{perceptron-error}
     E^\mu = \mathsf{\bm{w}} \cdotp \xi^\mu - S^\mu_R
 \end{equation}
+
+The weights update consists in increasing (or decreasing) their previous value by an amount proportional to the error made
+by the perceptron in the classification task. The formula used to computed the values of the updated weight vectors is reported in (equation
+\ref{perceptron-weight-update}).
 
 \begin{equation} \label{perceptron-weight-update}
     \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) \bm{\xi}^{v(7)} S^{v(t)}_R
 \end{equation}
 
-\begin{itemize}
-\item describe methods and techniques that build the basis of your work
-\item include what's needed to understand your work (e.g., techniques, protocols, models, hardware, software, ...)
-\item exclude what's not (e.g., anything you yourself did, anything your reader can be expected to know, ...)
-\end{itemize}
+The learning process (i.e. the presentation of the input and the update of the weights) is iterated till either the perceptron is able to classify correctly
+all the data contained in the training set or it reaches a maximum number of epochs (i.e. iterations).

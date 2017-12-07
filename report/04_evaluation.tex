@@ -2,6 +2,7 @@
 \label{sec:evaluation}
 
 \subsection{Storage Capacity}
+\label{subsec:capacity}
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\columnwidth]{figures/base}
@@ -18,6 +19,7 @@ The value of $\alpha$ for which the function drops is called storage capacity of
 For $N \to \infty$ (very large number of examples) and $n_{max} \to \infty$ (no limit on the maximum number of training epochs), the theoretical storage capacity of the Rosenblatt perceptron is $\alpha = 2$.
 
 \subsection{Number of Epochs}
+\label{subsec:epochs}
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\columnwidth]{figures/multiple_epochs}
@@ -30,6 +32,7 @@ The difference between the theoretical value and the experimental one are mainly
 for a very small number of epochs (eg. $n_{max} = 10$), the step is close to $\alpha = 1$, while for higher values of epochs the step moves closer and closer to the theoretical value $\alpha = 2$.
 
 \subsection{Number of Dimensions}
+\label{subsec:dimensions}
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\columnwidth]{figures/multiple_n}
@@ -77,10 +80,3 @@ figure \ref{fig:multiple_c_multiple_epoch}.
 	\label{fig:multiple_c_multiple_epoch}
 \end{figure}
 
-\subsection{TODO}
-\begin{itemize}
-    \item With a limited number of epochs and repetitions the algorithm doesn't have enough time to approach its theoretical values
-    \item C seems to be related to the learning rate
-    \item say how we choose values for alpha...
-    \item Description of plots!
-\end{itemize}

@@ -36,3 +36,15 @@ $Q_{l.s.}$ gives an estimate of the probability that the perceptron finds a line
 
 Multiple experiments are run for different values of $P$ and $N$ in order to compute $Q_{l.s.}$ as a function of $\alpha = P / N$.
 In other words, we study the probability of the perceptron to find a linear separation as a function of the rate between the number of examples and the dimension of the input.
+
+\subsection{Bonus parts}
+\subsubsection{Weight update criterion ($E^\mu < c$)}
+For this point we modified the function that trains the perceptron in a way which assures that the update of the weights' vector $\mathsf{\bm{w}}$ is 
+performed just if the error computed using the formula \ref{perceptron-error} is smaller than a newly introduced value $c$. Furthermore we had to update
+the line of code that checks wether all the classifications performed by the perceptron were right by imposing the condition that they had to be greater than c.
+
+\subsubsection{Inhomogeneous perceptron solution}
+The inhomogeneous solution of the perceptron consists in the solution of the classification problem using a perceptron that is built with the idea that the line that determines
+the separation between the two classes doesn't pass through the origin, but has a different intercept. In order to express this property of the line and element, with value $-1$ has to be added to
+end of the input vector $\xi$ and also the weights' vector size has to be increased by one; the last element will be treated as the intercept $\theta$. We modified the function that runs
+our experiment so that the training function already receives in input two vectors $N$ and $\mathsf{\bf{w}}$ with the correct sizes.

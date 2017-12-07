@@ -14,8 +14,12 @@ presenting at every step $t$ an input vector $\xi$ to the perceptron, calculate 
 the correct labeling $\bm{S}$ (through the formula (\ref{perceptron-error})) and update the values of the weights' vector in case the former
 calculated error is greater than zero (or in a general case $c$ as we will discuss in the bonus).
 
-The weights update consists in increasing (or decreasing )
+The weights update consists in increasing (or decreasing) their previous value by an amount proportional to the error made
+by the perceptron in the classification task. The formula used to computed the values of the updated weight vectors is reported in (equation
+\ref{perceptron-weight-update}).
 
+The learning process (i.e. the presentation of the input and the update of the weights) is iterated till either the perceptron is able to classify correctly
+all the data contained in the training set or it reaches a maximum number of epochs (i.e. iterations).
 
 \begin{equation} \label{perceptron-activation}
     S = sign(\mathsf{\bm{w}} \cdotp \xi) = \pm 1

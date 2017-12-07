@@ -44,6 +44,39 @@ For high values of $N$, the shape of the success rate $Q_{l.s.}$ as a function o
 For small values of $N$, the function looks like a smoothed step function:
 the smaller $N$ is, the higher is the smoothing.
 
+\subsection{Bonus}
+\subsubsection{Weight update criterion ($E^\mu < c$)}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\columnwidth]{figures/bonus_2_c}
+    \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different values of $c$.}
+	\label{fig:multiple_c}
+\end{figure}
+The first experiment we ran to try to understand the contribute of the variable $c$ in the algorithm consisted in training the perceptron for different
+values of it. As it is possible to notice in figure \ref{fig:multiple_c} the main effect is a shift to the left of the curve. This result was expected, because
+$c$ introduces a step greater than zero in order to proceed to with the update of the weights's vector. What we thought is that if the value needed to perform
+the update in greater also the number of epochs needed should be greater, proposing the hypothesis that $c$ works as a simple version of the learning rate that
+we find in more complex neural networks.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\columnwidth]{figures/bonus_2_epoch}
+    \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of $epochs$ with fixed value of $c=2$.}
+	\label{fig:fixed_c_multiple_epoch}
+\end{figure}
+For this reason we decided to simulate the behaviour of the curve for a given value of $c > 0$ and an increasing number of epochs. As it is possible to see
+in figure \ref{fig:fixed_c_multiple_epoch} by increasing the number of epochs we \'pushed\' the curve toward the values that we got in the original experiment shown
+in figure \ref{fig:base}, contrasting the effect of the increased value of $c$. The results we got from this experiment supported our hypothesis that $c$ behaves like
+a learning rate. In fact the algorithm reaches almost the same results for different values of the variables and consistently modified number of epochs as reported in
+figure \ref{fig:multiple_c_multiple_epoch}.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\columnwidth]{figures/bonus_2_c_epoch}
+    \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of $epochs$ and $c$.}
+	\label{fig:multiple_c_multiple_epoch}
+\end{figure}
+
 \subsection{TODO}
 \begin{itemize}
     \item With a limited number of epochs and repetitions the algorithm doesn't have enough time to approach its theoretical values

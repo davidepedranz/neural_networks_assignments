@@ -3,7 +3,7 @@
 \subsection{Dataset Generation}
 The first step of the experiment is to generate an artificial dataset with $P$ random N-dimensional feature vectors and binary labels $\mathcal{D} = \{ \xi^\mu, S^\mu \,|\, \xi^\mu \in \mathds{R}^N, S^\mu \in \{+1, -1\} \}_{\mu=1}^P$.
 The feature vectors $\xi^\mu$ have independent random components $\xi_j^\mu \sim \mathcal{N}(0, 1)$ and are generated using the \texttt{randn} command in Matlab.
-The labels $S^\mu$ are assume the values $\{+1, -1\}$ with equal probability of $1/2$.
+The labels $S^\mu$ are assuming the values $\{+1, -1\}$ with equal probability of $1/2$.
 
 \begin{lstlisting}[language=Matlab]
   function [X, y] = generate_dataset(P, N)

@@ -90,11 +90,6 @@ figure \ref{fig:multiple_c_multiple_epoch}.
 	\label{fig:homogeneous}
 \end{figure}
 
-Rosenblatt perceptrons only learns separation hyperplanes that goes through the origin (homogeneous).
-In general, a solution to the classification problem may be a hyperplane that does not go through the origin (inhomogeneous).
-It is possible to generalize the Rosenblatt perceptron to learn also inhomogeneous separation hyperplanes by adding an artificial dimension to the dataset and forcing it to a non-zero constant (e.g. $1$):
-it is easy to prove that each dataset inhomogeneously linearly separable in $R^N$ is homogeneously linearly separable in $R^{N+1}$.
-
 We run an experiment to verify the behaviour of $Q_{l.s.}$ by allowing inhomogeneous hyperplanes:
 we trained both a normal and modified perceptron on $200$ different datasets using $N = 500$, $n_max = 200$. 
 \cref{fig:homogeneous} shows the results of the experiment.

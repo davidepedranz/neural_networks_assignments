@@ -39,12 +39,15 @@ Multiple experiments are run for different values of $P$ and $N$ in order to com
 In other words, we study the probability of the perceptron to find a linear separation as a function of the rate between the number of examples and the dimension of the input.
 
 \subsection{Bonus}
-\subsubsection{Weight update criterion}
+\subsubsection{Weight Update Criterion}
 We modified the function to train the perceptron to update the weights' vector $\mathsf{\bm{w}}$ if $E^\mu < c$ instead of $E^\mu < 0$ (see \cref{eq:update-rule}).
 Also, we changed the algorithm to stop the training only if $E^{\mu} > c$ for all examples in the dataset or the maximum number of epochs $n_{max}$ is reached.
 
-\subsubsection{Inhomogeneous perceptron solution}
-The inhomogeneous solution of the perceptron consists in the solution of the classification problem using a perceptron that is built with the idea that the line that determines
-the separation between the two classes doesn't pass through the origin, but has a different intercept. In order to express this property of the line and element, with value $-1$ has to be added to
-end of the input vector $\xi$ and also the weights' vector size has to be increased by one; the last element will be treated as the intercept $\theta$. We modified the function that runs
-our experiment so that the training function already receives in input two vectors $N$ and $\mathsf{\bf{w}}$ with the correct sizes.
+\subsubsection{Inhomogeneous Perceptrons}
+Rosenblatt perceptrons only learns separation hyperplanes that goes through the origin (homogeneous).
+In general, a solution to the classification problem may be a hyperplane that does not go through the origin (inhomogeneous), but be in the form:
+\begin{equation}
+    S = sign(\mathsf{\bm{w}} \cdotp \xi + \theta) = \pm 1
+\end{equation}
+
+It is possible to generalize the Rosenblatt perceptron to learn also inhomogeneous separation hyperplanes by adding an artificial dimension to the dataset and forcing it to a non-zero constant (e.g. $-1$) and increasing the size of the weights' vector $\mathsf{\bf{w}}$ by one (the last element of $\mathsf{\bf{w}}$ corresponds to the intercept $\theta$).

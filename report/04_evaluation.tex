@@ -47,9 +47,8 @@ For high values of $N$, the shape of the success rate $Q_{l.s.}$ as a function o
 For small values of $N$, the function looks like a smoothed step function:
 the smaller $N$ is, the higher is the smoothing.
 
-\subsubsection{Weight update criterion ($E^\mu < c$)}
+\subsection{Weight Update Criterion}
 \label{subsec:c}
-
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\columnwidth]{figures/bonus_2_c}
@@ -96,19 +95,14 @@ we trained both a normal and modified perceptron on $200$ different datasets usi
 As expected, the success rate $Q_{l.s.}$ of the inhomogeneous perceptron is slightly higher than homogeneous one.
 However, the difference is not significant.
 
-Since finding a homogeneously solution in $R^{N+1}$ is equivalent to find an inhomogeneously solution ... TODO!
+The problem of finding an inhomogeneously solution in $R^{N}$ can be solved by finding a homogeneously solution in $R^{N + 1}$.
+In a second experiment, we compare the success rate $Q_{l.s.}$ of an inhomogeneous perceptron for $N = 500$ with an homogeneous perceptron for $N = 501$.
+\cref{fig:homogeneous_n_n1} shows the result of this experiment.
+As expected, the success rates for the $2$ perceptrons are very close to each other.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\columnwidth]{figures/homogeneous_n_n1}
-    \caption{TODO.}
+    \caption{Storage success rate of a homogeneous Rosenblatt perceptron with $N = 501$ and its inhomogeneous version with $N = 501$ as a function of $\alpha = P / N$.}
 	\label{fig:homogeneous_n_n1}
 \end{figure}
-
-\subsection{TODO}
-\begin{itemize}
-    \item With a limited number of epochs and repetitions the algorithm doesn't have enough time to approach its theoretical values
-    \item C seems to be related to the learning rate
-    \item say how we choose values for alpha...
-    \item Description of plots!
-\end{itemize}

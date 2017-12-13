@@ -1,6 +1,14 @@
-function [w, training_epochs_rate] = minover(X, y, n_max, min_update)
+function [w, n_updates] = minover(X, y, n_max)
     %%TRAIN_PERCEPTRON Train a perceptron on the dataset X, y for at most
     % (n_max * P) epochs using the Minover algorithm.
+    
+    % check the input
+    assert(size(X, 1) == size(y, 1));
+    assert(size(y, 2) == 1);
+    
+    % stop the training unless at least one component of the weigths vector
+    % does not change significantly...
+    min_update = 0.001;
     
     % extract the number of examples P and number of dimensions (N)
     P = size(X, 1);
@@ -37,7 +45,6 @@ function [w, training_epochs_rate] = minover(X, y, n_max, min_update)
         end
     end
     
-    % we return the effective number of epochs to check if the stopping
-    % criteria is working properly...
-    training_epochs_rate = epoch;
+    % we return the effective number of updates to complete the training
+    n_updates = epoch;
 end

@@ -1,40 +1,31 @@
-function [success_rate, results] = run_experiment(alpha, N, epochs, repetitions, c, homogeneous)
+function [average_error, errors] = run_experiment(alpha, N, n_max, repetitions)
     %RUN_EXPERIMENT Run an experiment for a fixes alpha and N.
     
-    % by default, use threashold c = 0 and train homogeneous perceptrons
-    switch nargin
-        case 4
-            c = 0;
-            homogeneous = true;
-        case 5
-            homogeneous = true;
-    end
+    % choose some W*, for example w* = (1, 1, 1... 1)'
+    w_star = ones(N, 1);
+    
+    % stop the training unless at least one component of the weigths vector
+    % does not change significantly...
+    min_update = 1e-10;
 
     % run the experiments
-    fprintf('Running experiment for alpha=%.2f, N=%3d, epochs=%d, repetitions=%d, c=%f, homogeneous=%d ... ', alpha, N, epochs, repetitions, c, homogeneous);
-    results = zeros(repetitions, 1);
-    for i = 1:repetitions
+    fprintf('Running experiment for alpha=%.2f, N=%3d, n_max=%d, repetitions=%d ... ', alpha, N, n_max, repetitions);
+    errors = zeros(repetitions, 1);
+    parfor i = 1:repetitions
         
         % compute the number of examples to generate
         P = ceil(alpha * N);
         
         % generate examples
-        X = generate_dataset(P, N);
-        
-        % add a column for the biases, if needed
-        if ~homogeneous
-            X = [ones(size(X, 1), 1), X];
-        end
+        [X, y] = generate_dataset(P, N, w_star);
         
         % train the perceptron
-        w = train_perceptron(X, epochs, c);
+        w = minover(X, y, n_max, min_update);
         
-        % evaluate the performances
-        % all error values tend to c, that's why the success criteria
-        % should be c too
-        success = all(iff(X * w <= c, -1, 1) == y);
-        results(i) = success;
+        % compure the generalization error
+        error = acos(dot(w, w_star) / (norm(w) * norm(w_star))) / pi;
+        errors(i) = error;
     end
-    success_rate = sum(results) / length(results);
-    fprintf('success_rate = %f \n', success_rate);
+    average_error = mean(errors);
+    fprintf('average generalization error = %f \n', average_error);
 end

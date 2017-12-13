@@ -1,4 +1,4 @@
-function w = minover(X, y, n_max, min_update)
+function [w, training_epochs_rate] = minover(X, y, n_max, min_update)
     %%TRAIN_PERCEPTRON Train a perceptron on the dataset X, y for at most
     % (n_max * P) epochs using the Minover algorithm.
     
@@ -32,8 +32,12 @@ function w = minover(X, y, n_max, min_update)
         w = old_w + (example' * label) / N;
         
         % stopping criteria: stop if there is no significant update...
-        if all(abs(old_w - w) < (ones(N) * min_update))
+        if all(norm(old_w - w) / norm(w) < min_update)
             break
         end
     end
+    
+    % we return the effective number of epochs to check if the stopping
+    % criteria is working properly...
+    training_epochs_rate = epoch;
 end

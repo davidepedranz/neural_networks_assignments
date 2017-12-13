@@ -10,7 +10,7 @@ clear;
 repetitions = 50;           % n_D
 n_max = 250;                % n_max
 N = 200;                    % N
-alphas = 0.25:0.25:3;       % alpha -> TODO: more values
+alphas = 0.2:0.2:5;         % alpha
 
 % fix seed for the random number generator
 rng(0);

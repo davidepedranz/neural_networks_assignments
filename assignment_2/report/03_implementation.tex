@@ -3,12 +3,18 @@
 
 To implement the minover algorithm we recycled the code written for the Rosenblatt perceptron applying some modifies to it.
 
+\subsection{Dataset Generation}
 First of all we had to change the way the dataset is created according to the condition on the labels that the algorithm imposes.
 We therefore defined the labels following the formula [\ref{eq:labels_definition}] and defined the weights of the teacher perceptron
-as a vector of length $N$ with all values initialized to $1$ to respect the condition $\lvert \mathsf{\textbf{w}}^* \rvert^2 = N$.
-We chose $\mathsf{\textbf{w}}}^*$ in that way for simplicity reasons and because there is no difference between this version and
+as a vector of length $N$ with all values initialized to $1$ to respect the condition $\lvert \mathsf{\bm{w}}^* \rvert^2 = N$.
+We chose $\mathsf{\bm{w}}^*$ in that way for simplicity reasons and because there is no difference between this version and
 the one with randomized values, since the theoretical distance from the student perceptron's weight vector and the teacher's one is
-fixed and equal to $N$.
+fixed and equal to $\sqrt{N}$ as it is possible to see in the following equation.
+
+\begin{gather*}
+    \mathsf{\bm{w}} = \overrightarrow{0} \in \mathbb{R}^N \\
+    distance(\mathsf{\bm{w}}, \mathsf{\bm{w}}^*) = \lvert \mathsf{\bm{w}} - \mathsf{\bm{w}}^* \rvert = \lvert \mathsf{\bm{w}}^* \rvert = \sqrt{N}
+\end{gather*}
 
 \begin{lstlisting}[language=Matlab]
     function [X, y] = generate_dataset(P, N, w_star)
@@ -17,9 +23,32 @@ fixed and equal to $N$.
     end
 \end{lstlisting}
 
+\subsection{Perceptron Training}
+After creating the new dataset we proceeded with the implementation of the minover algorithm itself. As we did with the Rosenblatt one
+we initialized the weights' vector of the student perceptron with zeros and then iterated over number of epochs (defined by $epochs = n_max * P$).
+During each epoch the matrix of the stabilities was calculated (for performance reasons we used matrix operations instead of iterating over the
+number of the elements in the dataset $P$). At each iteration we updated the weight vector considering the input linked to the minimum stability.
+This algorithm differs from the Rosenblatt's one because at each step it performs the update, no matters wether the perceptron is already able to give
+the correct classification (still it could not have reached the optimum stability), so we had also to add a condition to terminate the training if the
+last update was smaller than a certain threshold (in our case we chose $min_update = 0.001$, because imposing that the update had to be zero was too
+strict and turned out never being true).
 
 
-TODO!
+\subsection{Experiments}
+For a fixed value of $P$ and $N$, $n_D$ independent datasets are generated. A new perceptron is trained on each dataset for at most $epochs = n_max * P$ epochs.
+For each dataset, we compute the rate fraction $\in_g(t_{max})$ of generalization error. This error, calculated with the formula [\ref{eq:generalization_error}]
+is a measure of how accurate the perceptron is in classifying previously unseen data, but in this case also means how distant it is from the teacher perceptron for those inputs.
+
+Multiple experiments are run for different values of $P$ and $N$ in order to compute $in_g(t_{max})$ as a function of $\alpha = P / N$.
+In other words, we studied the accuracy of the perceptron in classifying previously unseen inputs as a function of the rate between the number of examples and the dimension of the input.
+
+
+\begin{equation} \label{eq:generalization_error}
+    \in_g(t_{max}) = \frac{1}{\pi} \arccos \bigg(\frac{\mathsf{\bm{w}}(t_{max})\;\cdotp \mathsf{\bm{w}}^*}{\lvert \mathsf{\bm{w}}(t_{max}) \rvert \lvert \mathsf{\bm{w}}^* \rvert} \bigg)
+\end{equation}
+
+\subsection{Bonus}
+TODO
 
 % \subsection{Dataset Generation}
 % The first step of the experiment is to generate an artificial dataset with $P$ random N-dimensional feature vectors and binary labels $\mathcal{D} = \{ \xi^\mu, S^\mu \,|\, \xi^\mu \in \mathds{R}^N, S^\mu \in \{+1, -1\} \}_{\mu=1}^P$.

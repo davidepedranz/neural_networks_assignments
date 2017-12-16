@@ -13,12 +13,12 @@
     
     prob = rand(P, 1);
         
-    noise = iff(prob < lambda, -1, +1);
+    niff(prob < lambda, -1, +1);
     
     % check the dimension of w_star
     assert(all(size(w_star) == [N, 1]));
     
     % generate random data and assign the labels according to w_star
     X = randn(P, N);
-    y = sign(X * w_star) .* noise;
+    y = sign(X * w_star) .* ;
 end

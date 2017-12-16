@@ -10,14 +10,14 @@ clear;
 repetitions = 50;           % n_D
 n_max = 250;                % n_max
 N = 200;                    % N
-alphas = 0.25:0.25:5;       % alpha
-lambdas = 0:0.1:0.5;        % lambda
+alphas = 0.2:0.5:5;         % alpha
+lambdas = 0:0.1:0.5;
 
 % fix seed for the random number generator
 rng(0);
 
 % run all experiments (and cache the results)
-cache = 'results/errors.mat';
+cache = 'results/base.mat';
 if (exist(cache, 'file'))
     fprintf('Loading results from cache "%s"...\n', cache);
     error_rates = importdata(cache);
@@ -26,19 +26,21 @@ else
     
     tic
     len_alphas = length(alphas);
-    len_lambdas = length(lambdas);
-    error_rates = zeros(len_lambdas, len_alphas, 2);
-    updates = zeros(len_lambdas, len_alphas, 2);
+    len_
+    error_rates = zeros(4, len_alphas, );
     for alpha = (1 : len_alphas)
-        for lambda = 1:len_lambdas
-            [error_rates(lambda, alpha, 1), updates(lambda, alpha, 1)] = run_experiment(@minover, alphas(alpha), N, n_max, repetitions, lambdas(lambda));
-            [error_rates(lambda, alpha, 2), updates(lambda, alpha, 2)]  = run_experiment(@rosenblatt, alphas(alpha), N, n_max, repetitions, lambdas(lambda));
+        error_rates(1, alpha) = run_experiment(@minover, alphas(alpha), N, n_max, repetitions);
+        error_rates(2, alpha) = run_experiment(@rosenblatt, alphas(alpha), N, n_max, repetitions);
+        
+        for i = length(lambdas)
+            error_rates(3, alpha, i) = run_experiment(@minover, alphas(alpha), N, n_max, repetitions, 0.2);
+            error_rates(4, alpha, i) = run_experiment(@rosenblatt, alphas(alpha), N, n_max, repetitions, 0.2);
         end
     end
+    
     toc
     
-    save('results/errors.mat', 'error_rates');
-    save('results/updates.mat', 'updates');
+    save('results/base.mat', 'error_rates');
 end
 
 mrk={'-o','-s','-*','-v','-+','-^'};

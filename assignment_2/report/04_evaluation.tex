@@ -28,5 +28,16 @@ Since the Minover algorithm tries to find some separation hyperplane, it is easi
 
 
 \subsection{Minover vs Rosenblatt}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\columnwidth]{figures/comparison}
+    \caption{Generalization error for the Minover and the Rosenblatt algorithms on a linearly separable dataset.}
+	\label{fig:comparison}
+\end{figure}
+
+\cref{fig:base} shows the generalization error of the perceptron trained with the Minover and the Rosenblatt algorithms on a linearly separable dataset (with no noise, $\lambda = 0$).
+For both algorithms the generalization error decreases with higher numbers of examples for the training (see the previous section).
+In absence of noise, the performances of the $2$ algorithms are quite close, with Minover performing slightly better than Rosenblatt for low values of $\alpha$.
+
 
 \subsection{Noise}

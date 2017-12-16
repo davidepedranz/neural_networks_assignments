@@ -1,4 +1,16 @@
 \section{Introduction}
 \label{sec:introduction}
 
-TODO
+Perceptrons are devices used to solve binary classification problems.
+The perceptron tries to learn a hyperplane that divides the training examples in $2$ groups, depending on their label.
+In general, if the dataset is linear separable, there are an infinite number of hyperplanes that perfectly separates the examples based on their labels.
+The Minover algorithm tries to find the hyperplane with the maximum stability, i.e. maximize the distance of the closest examples for the hyperplane.
+
+In this assignment, we implement the Minover training algorithm and measured its generalization error on a linearly separable dataset as a function of the number of examples.
+We also compare its performances with the Rosenblatt algorithm implemented in the previous assignment.
+Finally, we introduce different degrees of noise in the datasets and observe the performances of both algorithms.
+
+\cref{sec:theory} gives a formal introduction to the Minover training algorithm.
+\cref{sec:implementation} describes the implementation of the various simulations.
+\cref{sec:evaluation} discusses in details the results of the experiments.
+\cref{sec:conclusion} summarized the most obtained results.

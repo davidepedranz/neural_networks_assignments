@@ -2,7 +2,7 @@
 \label{sec:theory}
 
 This time the focus was to find the perceptron of \textbf{maximum stability}, which means trying to maximize the margin between the
-weight vector and the closest input label, or in other words trying to approximate to the teacher perceptron $\mathsf{\textbf{w}}*$.
+weight vector and the closest input label, or in other words trying to approximate to the teacher perceptron $\mathsf{\textbf{w}}^*$.
 The stability is therefore defined exactly as the distance mentioned former using the formula [\ref{perceptron-stability}].
 
 The dataset used is slightly different from the one of the Rosenblatt algorithm and the difference consists in defining the labels
@@ -16,18 +16,18 @@ respect to that the perceptron has the minimum stability, the in order to maximi
 This procedure is iterated over the number of epochs $n_{max}$ and stopped before reaching that value just if the last update
 corresponds to a zero update (i.e. $\mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t)$). 
 
-\begin{equation} \label{labels_definition}
+\begin{equation} \label{eq:labels_definition}
     S^\mu = sign(\mathsf{\bm{w}} \cdotp \xi^\mu)
 \end{equation}
 
-\begin{equation} \label{perceptron-stability}
+\begin{equation} \label{eq:perceptron-stability}
     \kappa^\mu = \frac{\mathsf{\bm{w}} \cdotp \xi^\mu S^\mu_R}{\lvert \mathsf{\bm{w}} \rvert}
 \end{equation}
 
-\begin{equation} \label{minimum_lookup}
+\begin{equation} \label{vminimum_lookup}
     \kappa^{\mu(t)} = \min_\nu \left \{ \kappa^{\nu(t)} =  \frac{\mathsf{\bm{w}} \cdotp \xi^\mu S^\mu_R}{\lvert \mathsf{\bm{w}} \rvert} \right \}
 \end{equation}
 
-\begin{equation} \label{hebbian_update}
+\begin{equation} \label{eq:hebbian_update}
     \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) + \frac{1}{N} \xi^{\mu(t)} S^{\mu(t)}_R
 \end{equation}

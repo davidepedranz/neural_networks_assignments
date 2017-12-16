@@ -1,6 +1,24 @@
 \section{Implementation}
 \label{sec:implementation}
 
+To implement the minover algorithm we recycled the code written for the Rosenblatt perceptron applying some modifies to it.
+
+First of all we had to change the way the dataset is created according to the condition on the labels that the algorithm imposes.
+We therefore defined the labels following the formula [\ref{eq:labels_definition}] and defined the weights of the teacher perceptron
+as a vector of length $N$ with all values initialized to $1$ to respect the condition $\lvert \mathsf{\textbf{w}}^* \rvert^2 = N$.
+We chose $\mathsf{\textbf{w}}}^*$ in that way for simplicity reasons and because there is no difference between this version and
+the one with randomized values, since the theoretical distance from the student perceptron's weight vector and the teacher's one is
+fixed and equal to $N$.
+
+\begin{lstlisting}[language=Matlab]
+    function [X, y] = generate_dataset(P, N, w_star)
+       X = randn(P, N);
+       y = sign(X * w_star);
+    end
+\end{lstlisting}
+
+
+
 TODO!
 
 % \subsection{Dataset Generation}

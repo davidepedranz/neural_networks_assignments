@@ -47,10 +47,9 @@ else
     save('results/updates.mat', 'updates');
 end
 
-mrk={'-o','-s','-*','-v','-+','-^'};
 plot_base(error_rates, alphas, lambdas);
-plot_comparison(error_rates, alphas, lambdas, algorithms, mrk);
-plot_noise(error_rates, alphas, lambdas, algorithms, mrk);
+plot_comparison(error_rates, alphas, lambdas, algorithms);
+plot_noise(error_rates, alphas, lambdas, algorithms);
 
 function plot_base(error_rates, alphas, lambdas)
     figure;
@@ -62,17 +61,18 @@ function plot_base(error_rates, alphas, lambdas)
     set(gca, 'FontSize', 12)
     title('Learning Curve for the Minover Algorithm', 'FontSize', 14);
     xlabel('Alpha = P / N');
-    ylabel('Generalization Error');
+    ylabel('Generalization Error')
+    ylim([0, 0.5]);
     save_for_report('base');
 end
 
-function plot_comparison(error_rates, alphas, lambdas, algorithms, mrk)
+function plot_comparison(error_rates, alphas, lambdas, algorithms)
     figure;
     box on;
     hold on;
     lambda_index = lambdas == 0;
     for algorithm = (1 : length(algorithms))
-        set(gca, 'LineStyleOrder', mrk(mod(algorithm, length(mrk))));
+        marker(algorithm);
         plot(alphas, error_rates(lambda_index, :, algorithm));
     end
     hold off;
@@ -80,21 +80,22 @@ function plot_comparison(error_rates, alphas, lambdas, algorithms, mrk)
     title('Learning Curve of the Perceptron', 'FontSize', 14);
     xlabel('Alpha = P / N');
     ylabel('Generalization Error');
+    ylim([0, 0.5]);
     legend(cellfun(@(a) capitalize(func2str(a)), algorithms, 'UniformOutput', false));
     save_for_report('comparison');
 end
 
-function plot_noise(error_rates, alphas, lambdas, algorithms, mrk)
+function plot_noise(error_rates, alphas, lambdas, algorithms)
     figure;
     box on;
     hold on;
-    len_lambdas = length(lambdas);
+    len_lambdas = length(lambdas) - 2;
     len_algorithms = length(algorithms);
     labels = cell(len_lambdas * len_algorithms, 1);
     for lambda = (1 : len_lambdas)
         for algorithm = (1 : len_algorithms)
             current_index = algorithm + (lambda - 1) * len_algorithms;
-            set(gca, 'LineStyleOrder', mrk(1 + mod(current_index, length(mrk))));
+            marker(current_index);
             plot(alphas, error_rates(lambda, :, algorithm));
             labels{current_index} = sprintf("%s, \\lambda=%.1f", capitalize(func2str(algorithms{algorithm})), lambdas(lambda));
         end
@@ -104,6 +105,14 @@ function plot_noise(error_rates, alphas, lambdas, algorithms, mrk)
     title('Learning Curve of the Perceptron', 'FontSize', 14);
     xlabel('Alpha = P / N');
     ylabel('Generalization Error');
+    ylim([0, 0.5]);
     legend(labels, 'Location', 'southwest');
     save_for_report('noise');
+end
+
+function marker(index)
+    mrk = {'-x','-.o','-*','-.v','-+','-.p', '-^', '-.s'};
+    len = length(mrk);
+    choice = iff(mod(index, len) == 0, len, mod(index, len));
+    set(gca, 'LineStyleOrder', mrk(choice));
 end

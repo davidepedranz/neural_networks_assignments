@@ -48,56 +48,18 @@ In other words, we studied the accuracy of the perceptron in classifying previou
 \end{equation}
 
 \subsection{Bonus}
-TODO
+\subsubsection{Noisy dataset}
+We decided to implement this bonus part because it's well known that in real classification problems the dataset provided to the perceptron is not perfect and can contain a certain
+amount of noisy data. It's therefore of interest investing the performance of the two algorithms with that kind of data. The implementation consists in a small edit of the function
+that generates the dataset. As it is possible to notice in the function below, we generated $P$ random values and then defined a vector called noise which contains
+a label $-1$ if the probability (i.e. the randomly generated number) is smaller than $\lambda$ and $+1$ otherwise. A dot product is afterwards performed to introduce the noise in
+the labels. 
 
-% \subsection{Dataset Generation}
-% The first step of the experiment is to generate an artificial dataset with $P$ random N-dimensional feature vectors and binary labels $\mathcal{D} = \{ \xi^\mu, S^\mu \,|\, \xi^\mu \in \mathds{R}^N, S^\mu \in \{+1, -1\} \}_{\mu=1}^P$.
-% The feature vectors $\xi^\mu$ have independent random components $\xi_j^\mu \sim \mathcal{N}(0, 1)$ and are generated using the \texttt{randn} command in Matlab.
-% The labels $S^\mu$ are assuming the values $\{+1, -1\}$ with equal probability of $1/2$.
-
-% \begin{lstlisting}[language=Matlab]
-%   function [X, y] = generate_dataset(P, N)
-%       X = randn(P, N);
-%       y = iff(rand(P, 1) < 0.5, -1, 1);
-%   end
-% \end{lstlisting}
-
-% \subsection{Perceptron Training}
-% The next step is to use the Rosenblatt algorithm to implement and train a perceptron on the generated dataset.
-% The Rosenblatt algorithm is a sequential procedure that learns the weights of the perceptron from the examples.
-% The weights are initialized to zero, then the training examples are presented one by one to the perceptron for a given number of epochs (iterations).
-% If the example is correctly classified according to the current weights, no update is performed;
-% if the example if wrongly classified, the weights are updated according to the following rule:
-% \begin{gather} 
-%     w(0) = 0, \\
-%     w(t + 1) =  \begin{cases}
-%                     w(t) + \frac{1}{N} \xi^{\mu(t)} S^{\mu(t)} &\text{if $E^{\mu(t)} \leq 0$}\\
-%                     w(t) &\text{else}
-%                 \end{cases},
-%     \label{eq:update-rule}
-% \end{gather}
-% where $E^{\mu(t)} = w(t) \xi^{\mu(t)} S^{\mu(t)}$, $t = 1, 2, ...$ represents the current time step and $\mu(t) = 1, 2, ..., P, 1, 2, ...$ identifies the current example.
-% The algorithm is stopped either when $E^\mu > 0$ for all examples in the dataset or the maximum number of epochs $n_{max}$ is reached.
-
-% \subsection{Experiments}
-% For a fixed value of $P$ and $N$, $n_D$ independent datasets are generated.
-% A new perceptron is trained on each dataset for at most $n_{max}$ epochs.
-% For each dataset, we compute the rate fraction $Q_{l.s.}$ of successful runs, where a run is successful if the perceptron correctly classifies each example in the dataset at the end of the training phase.
-% $Q_{l.s.}$ gives an estimate of the probability that the perceptron finds a linear separation in a random dataset of $P$ independent points in $N$ dimension.
-
-% Multiple experiments are run for different values of $P$ and $N$ in order to compute $Q_{l.s.}$ as a function of $\alpha = P / N$.
-% In other words, we study the probability of the perceptron to find a linear separation as a function of the rate between the number of examples and the dimension of the input.
-
-% \subsection{Bonus}
-% \subsubsection{Weight Update Criterion}
-% We modified the function to train the perceptron to update the weights' vector $\mathsf{\bm{w}}$ if $E^\mu < c$ instead of $E^\mu < 0$ (see \cref{eq:update-rule}).
-% Also, we changed the algorithm to stop the training only if $E^{\mu} > c$ for all examples in the dataset or the maximum number of epochs $n_{max}$ is reached.
-
-% \subsubsection{Inhomogeneous Perceptrons}
-% Rosenblatt perceptrons only learns separation hyperplanes that goes through the origin (homogeneous).
-% In general, a solution to the classification problem may be a hyperplane that does not go through the origin (inhomogeneous), but be in the form:
-% \begin{equation}
-%     S = sign(\mathsf{\bm{w}} \cdotp \xi + \theta) = \pm 1
-% \end{equation}
-
-% It is possible to generalize the Rosenblatt perceptron to learn also inhomogeneous separation hyperplanes by adding an artificial dimension to the dataset and forcing it to a non-zero constant (e.g. $-1$) and increasing the size of the weights' vector $\mathsf{\bf{w}}$ by one (the last element of $\mathsf{\bf{w}}$ corresponds to the intercept $\theta$).
+\begin{lstlisting}[language=Matlab]
+    function [X, y] = generate_dataset(P, N, w_star, lambda)
+        prob = rand(P, 1);
+        noise = iff(prob < lambda, -1, +1);
+        X = randn(P, N);
+        y = sign(X * w_star) .* noise;
+    end
+\end{lstlisting}

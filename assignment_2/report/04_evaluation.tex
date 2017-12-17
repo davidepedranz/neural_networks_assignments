@@ -35,9 +35,34 @@ Since the Minover algorithm tries to find some separation hyperplane, it is easi
 	\label{fig:comparison}
 \end{figure}
 
-\cref{fig:base} shows the generalization error of the perceptron trained with the Minover and the Rosenblatt algorithms on a linearly separable dataset (with no noise, $\lambda = 0$).
+\cref{fig:comparison} shows the generalization error of the perceptron trained with the Minover and the Rosenblatt algorithms on a linearly separable dataset (with no noise, $\lambda = 0$).
 For both algorithms the generalization error decreases with higher numbers of examples for the training (see the previous section).
 In absence of noise, the performances of the $2$ algorithms are quite close, with Minover performing slightly better than Rosenblatt for low values of $\alpha$.
 
 
 \subsection{Noise}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\columnwidth]{figures/noise}
+    \caption{Generalization error for the Minover and the Rosenblatt algorithms on a noisy dataset. The dataset is generated starting from a linearly separable set of examples and swapping the labels of each example with probability $\lambda$. The lines for $\lambda = 0$ (no noise) are left as a reference.}
+	\label{fig:noise}
+\end{figure}
+
+\cref{fig:noise} shows the generalization error of the perceptron trained with the Minover and the Rosenblatt algorithms on a noisy dataset.
+For both algorithms, the generalization error increases with the noise $\lambda$.
+
+The error for the Minover algorithm initially decreases by adding new examples, while it starts to increase again if the dataset gets bigger:
+the algorithm diverges from the teacher vector $w^{*}$.
+The more noise is present, the sooner the algorithm starts to diverge.
+At each step, the algorithm selects the example with the lower stability $\kappa^\mu \propto \bm{w}} \cdotp \xi^\mu S^\mu_R$:
+this quantity is positive for correctly classified examples and negative for wrongly classified ones.
+If there are misclassified examples, the Minover algorithm chooses one of them to update the weights vector $\bm{w}$.
+If the dataset is non linearly separable, the Minover algorithm stacks forever:
+each update can correct the classification for some point, but not for all of them;
+in the following epochs, only the misclassified examples cause updates and create new wrongly classified point.
+For the way it is constructed, the probability that the dataset is not linearly separable is non-zero (for $\lambda \ne 0$) and increases with $\alpha$.
+For $\lambda = 0.3$, the algorithms show a generalization error of around $0.45$, very close to the error for a random guess.
+The Minover algorithm does not seem to be adapted for noisy datasets.
+
+The Rosenblatt algorithm has similar performances, but it does not diverge when $\alpha$ increases.
+In other words, the Rosenblatt algorithm is to some degree able to generalize to noisy datasets.

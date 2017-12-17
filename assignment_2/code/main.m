@@ -60,7 +60,7 @@ function plot_base(error_rates, alphas, lambdas)
     hold off;
     set(gca, 'FontSize', 12)
     title('Learning Curve for the Minover Algorithm', 'FontSize', 14);
-    xlabel('Alpha = P / N');
+    xlabel('\alpha = P / N');
     ylabel('Generalization Error')
     ylim([0, 0.5]);
     save_for_report('base');
@@ -78,7 +78,7 @@ function plot_comparison(error_rates, alphas, lambdas, algorithms)
     hold off;
     set(gca, 'FontSize', 12)
     title('Learning Curve of the Perceptron', 'FontSize', 14);
-    xlabel('Alpha = P / N');
+    xlabel('\alpha = P / N');
     ylabel('Generalization Error');
     ylim([0, 0.5]);
     legend(cellfun(@(a) capitalize(func2str(a)), algorithms, 'UniformOutput', false));
@@ -103,7 +103,7 @@ function plot_noise(error_rates, alphas, lambdas, algorithms)
     hold off;
     set(gca, 'FontSize', 12)
     title('Learning Curve of the Perceptron', 'FontSize', 14);
-    xlabel('Alpha = P / N');
+    xlabel('\alpha = P / N');
     ylabel('Generalization Error');
     ylim([0, 0.5]);
     legend(labels, 'Location', 'southwest');

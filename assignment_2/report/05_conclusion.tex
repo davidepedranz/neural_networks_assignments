@@ -1,4 +1,9 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-TODO
+The Minover algorithm tries to maximize the minimum stability of the dataset.
+In absence of noise, Minover yields a generalization error similar to the Rosenblatt algorithm.
+For both algorithms the generalization error decreases with a higher number of examples $P$ and approaches zero in the limit for $P \to \infty$.
+In presence of noise, the Minover algorithm diverges for big datasets, where the likelihood of the data to be non linearly separable is very high.
+
+In the original formulation, Minover does not give any advantage over the Rosenblatt algorithm in terms of generalization error, both in absence and presence of noise in the data.

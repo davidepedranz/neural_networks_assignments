@@ -6,14 +6,14 @@ To implement the minover algorithm we recycled the code written for the Rosenbla
 \subsection{Dataset Generation}
 First of all we had to change the way the dataset is created according to the condition on the labels that the algorithm imposes.
 We therefore defined the labels following the formula [\ref{eq:labels_definition}] and defined the weights of the teacher perceptron
-as a vector of length $N$ with all values initialized to $1$ to respect the condition $\lvert \mathsf{\bm{w}}^* \rvert^2 = N$.
-We chose $\mathsf{\bm{w}}^*$ in that way for simplicity reasons and because there is no difference between this version and
+as a vector of length $N$ with all values initialized to $1$ to respect the condition $\lvert \bm{\mathsf{w}}^* \rvert^2 = N$.
+We chose $\bm{\mathsf{w}}^*$ in that way for simplicity reasons and because there is no difference between this version and
 the one with randomized values, since the theoretical distance from the student perceptron's weight vector and the teacher's one is
 fixed and equal to $\sqrt{N}$ as it is possible to see in the following equation.
 
 \begin{gather*}
-    \mathsf{\bm{w}} = \overrightarrow{0} \in \mathbb{R}^N \\
-    distance(\mathsf{\bm{w}}, \mathsf{\bm{w}}^*) = \lvert \mathsf{\bm{w}} - \mathsf{\bm{w}}^* \rvert = \lvert \mathsf{\bm{w}}^* \rvert = \sqrt{N}
+    \bm{\mathsf{w}} = \overrightarrow{0} \in \mathbb{R}^N \\
+    distance(\bm{\mathsf{w}}, \bm{\mathsf{w}}^*) = \lvert \bm{\mathsf{w}} - \bm{\mathsf{w}}^* \rvert = \lvert \bm{\mathsf{w}}^* \rvert = \sqrt{N}
 \end{gather*}
 
 \begin{lstlisting}[language=Matlab]
@@ -33,7 +33,6 @@ the correct classification (still it could not have reached the optimum stabilit
 last update was smaller than a certain threshold (in our case we chose $min_update = 0.001$, because imposing that the update had to be zero was too
 strict and turned out never being true).
 
-
 \subsection{Experiments}
 For a fixed value of $P$ and $N$, $n_D$ independent datasets are generated. A new perceptron is trained on each dataset for at most $epochs = n_max * P$ epochs.
 For each dataset, we compute the rate fraction $\in_g(t_{max})$ of generalization error. This error, calculated with the formula [\ref{eq:generalization_error}]
@@ -44,7 +43,7 @@ In other words, we studied the accuracy of the perceptron in classifying previou
 
 
 \begin{equation} \label{eq:generalization_error}
-    \in_g(t_{max}) = \frac{1}{\pi} \arccos \bigg(\frac{\mathsf{\bm{w}}(t_{max})\;\cdotp \mathsf{\bm{w}}^*}{\lvert \mathsf{\bm{w}}(t_{max}) \rvert \lvert \mathsf{\bm{w}}^* \rvert} \bigg)
+    \in_g(t_{max}) = \frac{1}{\pi} \arccos \bigg(\frac{\bm{\mathsf{w}}(t_{max})\;\cdotp \bm{\mathsf{w}}^*}{\lvert \bm{\mathsf{w}}(t_{max}) \rvert \lvert \bm{\mathsf{w}}^* \rvert} \bigg)
 \end{equation}
 
 \subsection{Bonus}

@@ -54,7 +54,7 @@ For both algorithms, the generalization error increases with the noise $\lambda$
 The error for the Minover algorithm initially decreases by adding new examples, while it starts to increase again if the dataset gets bigger:
 the algorithm diverges from the teacher vector $w^{*}$.
 The more noise is present, the sooner the algorithm starts to diverge.
-At each step, the algorithm selects the example with the lower stability $\kappa^\mu \propto \bm{w}} \cdotp \xi^\mu S^\mu_R$:
+At each step, the algorithm selects the example with the lower stability $\kappa^\mu \propto \bm{w} \cdotp \xi^\mu S^\mu_R$:
 this quantity is positive for correctly classified examples and negative for wrongly classified ones.
 If there are misclassified examples, the Minover algorithm chooses one of them to update the weights vector $\bm{w}$.
 If the dataset is non linearly separable, the Minover algorithm stacks forever:

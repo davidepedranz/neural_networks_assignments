@@ -1,33 +1,27 @@
+\lstset{language=Matlab,%
+%basicstyle=\color{red},
+breaklines=true,%
+morekeywords={matlab2tikz},
+keywordstyle=\color{blue},%
+morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+identifierstyle=\color{black},%
+stringstyle=\color{mylilas},
+commentstyle=\color{mygreen},%
+showstringspaces=false,%without this there will be a symbol in the places where there is a space
+numbers=left,%
+numberstyle={\tiny \color{black}},% size of the numbers
+numbersep=9pt, % this defines how far the numbers are from the text
+emph=[1]{for,end,break},emphstyle=[1]\color{blue}, %some words to emphasise
+%emph=[2]{word1,word2}, emphstyle=[2]{style},    
+}
+
 \begin{appendices}
     \section{Matlab code}
-        \subsection{Dataset generation basic implementation}
-        \begin{lstlisting}[language=Matlab]
-            function [X, y] = generate_dataset(P, N, w_star)
-               X = randn(P, N);
-               y = sign(X * w_star);
-            end
-        \end{lstlisting}
-
-        \subsection{Dataset generation noisy data}
-        \begin{lstlisting}[language=Matlab]
-            function [X, y] = generate_dataset(P, N, w_star, lambda)
-                prob = rand(P, 1);
-                noise = iff(prob < lambda, -1, +1);
-                X = randn(P, N);
-                y = sign(X * w_star) .* noise;
-            end
-        \end{lstlisting}
-
         \subsection{MinOver algorithm}
-
         \begin{lstlisting}[language=Matlab]
             function [w, n_updates] = minover(X, y, n_max)
                 %%TRAIN_PERCEPTRON Train a perceptron on the dataset X, y for at most
                 % (n_max * P) epochs using the Minover algorithm.
-            
-                % check the input
-                assert(size(X, 1) == size(y, 1));
-                assert(size(y, 2) == 1);
             
                 % stop the training unless at least one component of the weigths vector
                 % does not change significantly...
@@ -70,6 +64,25 @@
                 
                 % we return the effective number of updates to complete the training
                 n_updates = epoch;
+            end
+        \end{lstlisting}
+
+        \newpage
+        \subsection{Dataset generation basic implementation}
+        \begin{lstlisting}[language=Matlab]
+            function [X, y] = generate_dataset(P, N, w_star)
+               X = randn(P, N);
+               y = sign(X * w_star);
+            end
+        \end{lstlisting}
+
+        \subsection{Dataset generation noisy data}
+        \begin{lstlisting}[language=Matlab]
+            function [X, y] = generate_dataset(P, N, w_star, lambda)
+                prob = rand(P, 1);
+                noise = iff(prob < lambda, -1, +1);
+                X = randn(P, N);
+                y = sign(X * w_star) .* noise;
             end
         \end{lstlisting}
 

@@ -20,11 +20,11 @@ emph=[1]{for,end,break},emphstyle=[1]\color{blue}, %some words to emphasise
         \subsection{MinOver algorithm}
         \begin{lstlisting}[language=Matlab]
             function [w, n_updates] = minover(X, y, n_max)
-                %%TRAIN_PERCEPTRON Train a perceptron on the dataset X, y for at most
+                % TRAIN_PERCEPTRON Train a perceptron on the dataset X, y for at most
                 % (n_max * P) epochs using the MinOver algorithm.
             
-                % stop the training unless at least one component of the weigths vector
-                % does not change significantly...
+                % stop the training unless at least one component of the weights
+                % vector does not change significantly
                 min_update = 0.001;
                 
                 % extract the number of examples P and number of dimensions (N)
@@ -44,8 +44,8 @@ emph=[1]{for,end,break},emphstyle=[1]\color{blue}, %some words to emphasise
                     % stability
                     stabilities = (X * w) .* y;
                     
-                    % keep track of the old weight... we use this to stop the training
-                    % if the weights do not change significanty for a traning step
+                    % keep track of the old weight we use this to stop the training
+                    % if the weights do not change significantly for a training step
                     old_w = w;
                     
                     % extract the example with lowest stability
@@ -56,7 +56,7 @@ emph=[1]{for,end,break},emphstyle=[1]\color{blue}, %some words to emphasise
                     label = y(index);
                     w = old_w + (example' * label) / N;
                     
-                    % stopping criteria: stop if there is no significant update...
+                    % stopping criteria: stop if there is no significant update
                     if all(norm(old_w - w) / norm(w) < min_update)
                         break
                     end

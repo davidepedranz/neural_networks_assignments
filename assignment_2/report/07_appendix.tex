@@ -77,7 +77,7 @@ emph=[1]{for,end,break},emphstyle=[1]\color{blue}, %some words to emphasise
         \end{lstlisting}
 
         \subsection{Dataset generation noisy data}
-        \begin{lstlisting}[language=Matlab]
+        \begin{lstlisting}[language=Matlab,label={code:dataset_noise}]
             function [X, y] = generate_dataset(P, N, w_star, lambda)
                 prob = rand(P, 1);
                 noise = iff(prob < lambda, -1, +1);

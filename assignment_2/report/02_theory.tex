@@ -1,33 +1,31 @@
 \section{Theory}
 \label{sec:theory}
 
-This time the focus was to find the perceptron of \textbf{maximum stability}, which means trying to maximize the margin between the
-weight vector and the closest input label, or in other words trying to approximate to the teacher perceptron $\mathsf{\bm{w}}^*$.
-The stability is therefore defined exactly as the distance mentioned former using the formula [\ref{eq:perceptron-stability}].
+The aim of the Minover algorithm is to find the perceptron of maximum stability, i.e. to maximize the margin between the weight vector $\bm{\mathsf{w}}$ and the closest input example $\xi^\mu$. Formally, the stability $\kappa^\mu$ is defined in \cref{eq:perceptron-stability}:
 
-The dataset used is slightly different from the one of the Rosenblatt algorithm and the difference consists in defining the labels
-as the sign of the dot product between the input and the vector that represents the teacher perceptron (i.e. the result of the
-classification performed by the teacher perceptron for each input) (Formula [\ref{eq:labels_definition}]). 
-
-The stability is calculated for every input vector contained in the dataset and, after finding all the values of $\kappa$,
-the minimum is searched (Formula [\ref{eq:minimum_lookup}]) and a Hebbian update (Formula [\ref{eq:hebbian_update}]) is performed using the input vector
-respect to that the perceptron has the minimum stability, the in order to maximize the value of that property.
-
-This procedure is iterated over the number of epochs $n_{max}$ and stopped before reaching that value just if the last update
-corresponds to a zero update (i.e. $\mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t)$). 
-
-\begin{equation} \label{eq:labels_definition}
-    S^\mu = sign(\mathsf{\bm{w}} \cdotp \xi^\mu)
-\end{equation}
-
-\begin{equation} \label{eq:perceptron-stability}
+\begin{equation}
     \kappa^\mu = \frac{\mathsf{\bm{w}} \cdotp \xi^\mu S^\mu_R}{\lvert \mathsf{\bm{w}} \rvert}
+    \label{eq:perceptron-stability}
 \end{equation}
 
-\begin{equation} \label{vminimum_lookup}
-    \kappa^{\mu(t)} = \min_\nu \left \{ \kappa^{\nu(t)} =  \frac{\mathsf{\bm{w}} \cdotp \xi^\mu S^\mu_R}{\lvert \mathsf{\bm{w}} \rvert} \right \}
+During the training phase, the Minover algorithm looks for the input vector with the lowest stability at the current time $t$ (\cref{eq:minimum_lookup}) and performs a Hebbian update using it value (\cref{eq:hebbian_update}):
+
+\begin{equation}
+    \kappa^{\mu(t)} = \min_\nu \left \{ \kappa^{\nu(t)} =  \frac{\mathsf{\bm{w}}(t) \cdotp \xi^\nu S^\nu_R}{\lvert \mathsf{\bm{w}}(t) \rvert} \right \}
+    \label{eq:minimum_lookup}
 \end{equation}
 
-\begin{equation} \label{eq:hebbian_update}
+\begin{equation}
     \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) + \frac{1}{N} \xi^{\mu(t)} S^{\mu(t)}_R
+    \label{eq:hebbian_update}
 \end{equation}
+
+The procedure is repeated for a certain number of epochs $n_{max}$ or until convergence, i.e. when $\mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t)$.
+
+Like in the Rosenblatt perceptron, the labels $S^\mu \in \{+1, -1\}$ of new examples are computed by taking the sign of the dot product between the example $\xi^\mu$ and the final weights vector $\mathsf{\bm{w}}$, as shown in \cref{eq:labels_definition}:
+
+\begin{equation}
+    S^\mu = sign(\mathsf{\bm{w}} \cdotp \xi^\mu)
+    \label{eq:labels_definition}
+\end{equation}
+

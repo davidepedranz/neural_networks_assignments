@@ -1,0 +1,20 @@
+\begin{appendices}
+    \section{Matlab code}
+        \subsection{Dataset generation basic implementation}
+        \begin{lstlisting}[language=Matlab]
+            function [X, y] = generate_dataset(P, N, w_star)
+               X = randn(P, N);
+               y = sign(X * w_star);
+            end
+        \end{lstlisting}
+
+        \subsection{Dataset generation noisy data}
+        \begin{lstlisting}[language=Matlab]
+            function [X, y] = generate_dataset(P, N, w_star, lambda)
+                prob = rand(P, 1);
+                noise = iff(prob < lambda, -1, +1);
+                X = randn(P, N);
+                y = sign(X * w_star) .* noise;
+            end
+        \end{lstlisting}      
+\end{appendices}

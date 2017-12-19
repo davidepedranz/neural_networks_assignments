@@ -16,13 +16,6 @@ fixed and equal to $\sqrt{N}$ as it is possible to see in the following equation
     distance(\bm{\mathsf{w}}, \bm{\mathsf{w}}^*) = \lvert \bm{\mathsf{w}} - \bm{\mathsf{w}}^* \rvert = \lvert \bm{\mathsf{w}}^* \rvert = \sqrt{N}
 \end{gather*}
 
-\begin{lstlisting}[language=Matlab]
-    function [X, y] = generate_dataset(P, N, w_star)
-       X = randn(P, N);
-       y = sign(X * w_star);
-    end
-\end{lstlisting}
-
 \subsection{Perceptron Training}
 After creating the new dataset we proceeded with the implementation of the minover algorithm itself. As we did with the Rosenblatt one
 we initialized the weights' vector of the student perceptron with zeros and then iterated over number of epochs (defined by $epochs = n_max * P$).
@@ -52,13 +45,4 @@ We decided to implement this bonus part because it's well known that in real cla
 amount of noisy data. It's therefore of interest investing the performance of the two algorithms with that kind of data. The implementation consists in a small edit of the function
 that generates the dataset. As it is possible to notice in the function below, we generated $P$ random values and then defined a vector called noise which contains
 a label $-1$ if the probability (i.e. the randomly generated number) is smaller than $\lambda$ and $+1$ otherwise. A dot product is afterwards performed to introduce the noise in
-the labels. 
-
-\begin{lstlisting}[language=Matlab]
-    function [X, y] = generate_dataset(P, N, w_star, lambda)
-        prob = rand(P, 1);
-        noise = iff(prob < lambda, -1, +1);
-        X = randn(P, N);
-        y = sign(X * w_star) .* noise;
-    end
-\end{lstlisting}
+the labels.

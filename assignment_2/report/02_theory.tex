@@ -1,14 +1,14 @@
 \section{Theory}
 \label{sec:theory}
 
-The aim of the Minover algorithm is to find the perceptron of maximum stability, i.e. to maximize the margin between the weight vector $\bm{\mathsf{w}}$ and the closest input example $\xi^\mu$. Formally, the stability $\kappa^\mu$ is defined in \cref{eq:perceptron-stability}:
+The aim of the MinOver algorithm is to find the perceptron of maximum stability, i.e. to maximize the margin between the weight vector $\bm{\mathsf{w}}$ and the closest input example $\xi^\mu$. Formally, the stability $\kappa^\mu$ is defined in \cref{eq:perceptron-stability}:
 
 \begin{equation}
     \kappa^\mu = \frac{\mathsf{\bm{w}} \cdotp \xi^\mu S^\mu_R}{\lvert \mathsf{\bm{w}} \rvert}
     \label{eq:perceptron-stability}
 \end{equation}
 
-During the training phase, the Minover algorithm looks for the input vector with the lowest stability at the current time $t$ (\cref{eq:minimum_lookup}) and performs a Hebbian update using it value (\cref{eq:hebbian_update}):
+During the training phase, the MinOver algorithm looks for the input vector with the lowest stability at the current time $t$ (\cref{eq:minimum_lookup}) and performs a Hebbian update using it value (\cref{eq:hebbian_update}):
 
 \begin{equation}
     \kappa^{\mu(t)} = \min_\nu \left \{ \kappa^{\nu(t)} =  \frac{\mathsf{\bm{w}}(t) \cdotp \xi^\nu S^\nu_R}{\lvert \mathsf{\bm{w}}(t) \rvert} \right \}

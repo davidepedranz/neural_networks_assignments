@@ -1,6 +1,7 @@
 function [w1, w2, err_calc_time, train_error, test_error] = gdtrain(X_train, y_train, X_test, y_test, t_max, eta)
     [P, N_dim] = size(X_train);
     
+%   Initialization of the weights' vectors with norm = 1
     w1 = rand(N_dim, 1);
     w1 = w1/norm(w1);
     w2 = rand(N_dim, 1);

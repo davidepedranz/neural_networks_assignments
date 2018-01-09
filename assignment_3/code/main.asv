@@ -8,12 +8,12 @@ rng(0);
 % Your code goes here
 load('data/data3.mat');
 eta = 0.05;
-t_max = 250;
+t_max = 500;
 
 X = xi';
 y = tau';
 
-train_range = 1:500;
+train_range = 1:1000;
 test_range = 4001:5000;
 
 for i = 1:10
@@ -32,7 +32,6 @@ xlabel('Iterations');
 ylabel('Error');
 hold off;
 ylim([0, 0.5]);
-saveas(gcf, sprintf('img/error_P_%d', max(train_range)),'png');
 
 % Plot weights as barplot
 

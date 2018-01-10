@@ -3,11 +3,11 @@
 
 All the results presented in this sections are obtained with a test set containing the examples from $3001$ to $5000$.
 
-\subsection{Training Error}
+\subsection{Train Error}
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\columnwidth]{figures/error}
-    \caption{Training and test error of the network for $P = 1000$.}
+    \caption{Train and test error of the network for $P = 1000$.}
 	\label{fig:training_error}
 \end{figure}
 
@@ -30,9 +30,16 @@ As expected, the units learn different weights thanks to the random initializati
 It is important to initialize the weights randomly in order to avoid symmetry problems:
 since the weights gradient and the update rule is the same for all hidden unit, the updates at each epoch will also be the same, which causes all units to learn the same final weights and reduces the representation power of the network.
 
-\subsection{Training Dataset}
+\subsection{Train Dataset}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\columnwidth]{figures/error_ps}
+    \caption{Train and test error of the network for different numbers of training examples $P$.}
+	\label{fig:ps}
+\end{figure}
 
-\subsection{Training Policy}
+
+\subsection{Train Policy}
 The learning rate is well known to influence the number of iterations the network needs to minimize
 its cost function. It is nevertheless true that a high value for this variable causes the network to
 be unstable since it learns the same amount of information from all the data that are presented to it (no matters the number of iterations).

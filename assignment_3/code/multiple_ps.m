@@ -63,7 +63,8 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
         hold on;
         errorbar(iterations, test_avg(:, p_index), test_std(:, p_index), 'r:', 'LineWidth', 1.25);
         hold off;
-        title(sprintf('Learning curves for P = %d', p));
+        set(gca, 'FontSize', 12);
+        title(sprintf('Learning curves for P = %d', p), 'FontSize', 14);
         xlabel('Iterations');
         ylabel('Error');
         legend('Training Error', 'Test Error');
@@ -89,7 +90,8 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
         i = i + 1;
     end
     hold off;
-    title('Learning curves for different values of P');
+    set(gca, 'FontSize', 12);
+    title('Learning curves for different values of P', 'FontSize', 14);
     xlabel('Iterations');
     ylabel('Error');
     ylim([0, 0.5]);

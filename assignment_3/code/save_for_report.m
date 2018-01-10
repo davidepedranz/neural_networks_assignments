@@ -7,10 +7,6 @@ function save_for_report(name, axs, extra_margin)
             extra_margin = 0;
     end
 
-    % make sure the needed folders are available
-    mkdir('results');
-    mkdir('../report/figures');
-
     % reduce white spaces
     for ax = axs
         outerpos = ax.OuterPosition;
@@ -29,6 +25,7 @@ function save_for_report(name, axs, extra_margin)
     fig.PaperSize = [fig_pos(3) fig_pos(4)];
 
     % save to PDF
-    print(gcf, strcat('../report/figures/', name), '-dpdf');
-    print(gcf, strcat('results/', name), '-dpdf');
+    name_escaped = strrep(strrep(strrep(strrep(name, '.', '_'), '(', ''), ')', ''), ' ', '_');
+    print(gcf, strcat('../report/figures/', name_escaped), '-dpdf');
+    print(gcf, strcat('results/', name_escaped), '-dpdf');
 end

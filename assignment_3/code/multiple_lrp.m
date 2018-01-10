@@ -14,7 +14,7 @@ function multiple_lrp(X, y, repetitions, t_max, p, q, strategies, strategies_nam
         152,78,163;
         255,127,0;
     ] / 256;
-    markers = 'xo*<s';
+    markers = '*o+<s';
 
     % extract train and test set
     [n_examples, ~] = size(X);
@@ -31,8 +31,9 @@ function multiple_lrp(X, y, repetitions, t_max, p, q, strategies, strategies_nam
     n_strategies = length(strategies);
     trains = zeros(t_max + 1, n_strategies, repetitions);
     tests = zeros(t_max + 1, n_strategies, repetitions);
-    for repetition = 1 : repetitions
-        for s_index = 1 : n_strategies
+    learning_rates = zeros(t_max * length(train_range), n_strategies);
+    for s_index = 1 : n_strategies
+        for repetition = 1 : repetitions
 
             % log the progress
             fprintf('[STRATEGIES]: repetition=%d, strategy=%s...\n', ...
@@ -40,9 +41,12 @@ function multiple_lrp(X, y, repetitions, t_max, p, q, strategies, strategies_nam
 
             % train and save the error curves
             [~, ~, iterations, trains(:, s_index, repetition), ...
-                tests(:, s_index, repetition)] = ...
+                tests(:, s_index, repetition), lr] = ...
                 gdtrain(X_train, y_train, X_test, y_test, t_max, strategies{s_index});
         end
+        
+        % save the learning rate over time to plot it
+        learning_rates(:, s_index) = lr;
     end
     
     % average & std
@@ -50,7 +54,7 @@ function multiple_lrp(X, y, repetitions, t_max, p, q, strategies, strategies_nam
     train_std = std(trains, [], 3);
     test_avg = mean(tests, 3);
     test_std = std(tests, [], 3);
-
+    
     % plot the error curves
     for s_index = 1 : n_strategies
         strategy = strategies_names{s_index};
@@ -96,4 +100,25 @@ function multiple_lrp(X, y, repetitions, t_max, p, q, strategies, strategies_nam
     set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));
     ylim([0, 0.2]);
     save_for_report('error_strategies');
+    
+    % plot the learning rates
+    step = 1000;
+    figure;
+    box on;
+    hold on;
+    range = 1 : step : size(learning_rates, 1);
+    for s_index = 1 : n_strategies
+        plot(range, learning_rates(range, s_index), 'Color', ...
+            colors(s_index, :), 'Marker', markers(s_index), 'MarkerSize', 5);
+    end
+    hold off;
+    set(gca, 'FontSize', 12);
+    title('Learning rate for different learning strategies', 'FontSize', 14);
+    xlabel('Iterations');
+    ylabel('Learning Rate');
+    legend(strategies_names);
+    curtick = get(gca, 'XTick');
+    set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));
+    ylim([0, 0.07]);
+    save_for_report('learning_rates');
 end

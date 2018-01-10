@@ -14,7 +14,7 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
         152,78,163;
         255,127,0;
     ] / 256;
-    markers = 'xo*<s';
+    markers = '*o+<s';
 
 
     % basic learning strategy: fixed learning rate

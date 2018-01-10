@@ -12,22 +12,40 @@ an activation function, which in our case is the hyperbolic tangent.
 \end{equation}
 
 The output of the network is then calculated as the sum of the activation function for every neuron
-on each layer and this represents the response of the output for a certain input $\varepsilon$.
+on each layer and this represents the response of the output for a certain input $\varepsilon$ and the
+weights' vectors $w_1, w_2$.
 
 \begin{equation}
-    \sigma (\varepsilon) = (tanh(w1 \cdotp \varepsilon) + tanh(w2 \cdotp \varepsilon))
+    \sigma (\varepsilon) = (tanh(w_1 \cdotp \varepsilon) + tanh(w_2 \cdotp \varepsilon))
 \end{equation}
 
 In order to train the network an error function is defined and calculated after each step of the training process
-(i.e. for each input presented to the network).
+(i.e. for each input presented to the network). In this case, since we are dealing with a regression problem (and not
+a classification one) the output of the network is a single value and the error is calculated as the total distance of
+the output of the network and the expected value $\tau(\varepsilon)$.
 
 \begin{equation}
     E = \frac{1}{P}\frac{1}{2} \sum_{\mu = 1}^{P} (\sigma(\varepsilon^\mu)) - \tau(\varepsilon^\mu))^2
 \end{equation}
 
-\blindtext
+With the so calculated error it's possible to proceed with the next step which consists in the online
+calculation of the gradients respect to the two weights' vectors. In the formula below we present the
+derivative of the error respect to a general weight vector $w_j$.
 
-\begin{equation}
-    \kappa^\mu = \frac{\mathsf{\bm{w}} \cdotp \xi^\mu S^\mu_R}{\lvert \mathsf{\bm{w}} \rvert}
-    \label{eq:perceptron-stability}
+\begin{equation} \label{eq:gradient-gen-weight}
+    \begin{split}
+        \nabla_w e^\nu =\; & (tanh(w_1 \cdotp \varepsilon^\nu) + tanh(w_2 \cdotp \varepsilon^\nu) - \tau(\varepsilon^\nu)) \cdotp\\
+        & \cdotp (1 - tanh^2(w_j \cdotp \varepsilon^\nu)) \cdotp \varepsilon^\nu
+    \end{split}
 \end{equation}
+
+The gradients are then evaluated for every weight and used to update them following0 the formula below for a defined
+learning rate $\eta$.
+
+\begin{equation} \label{eq:weights-update}
+    w_j \Leftarrow w_j * \eta \nabla_j e^\nu
+\end{equation}
+
+This step is the so called backward propagation of the error because and it's the only action that is
+performed backward in the feed-forward neural networks. This procedure is repeated in order to minimize
+the value of the error committed by the network during the training.

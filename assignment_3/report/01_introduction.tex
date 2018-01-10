@@ -1,4 +1,11 @@
 \section{Introduction}
 \label{sec:introduction}
 
-\blindtext
+Feed-forward neural networks represent a useful tool for machine learning nowadays. They consist in different levels of
+neurons (hidden units) called layers which have weighted directed connections with the following one. Such networks normally have an
+input layer, the one that represents the data taken as an input by the network (with a number of neurons equal to the dimension
+of the input), a variable number of layers and finally an output layer, which in our case corresponds to the sum of the values
+provided by the last hidden units layer. In this network the information is passed just forward (i.e. to the following layer), in order
+to avoid loops, with the only exception of the steps that concerns the adjustment of the weights' vectors, in which the gradient is calculated backward.
+Networks builded in this way represent an advancement of the perceptron and can reach much better performances (as in the case of storage where the capacity
+of a feed forward network is $\alpha = K \sqrt{ln K}$).

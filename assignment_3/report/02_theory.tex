@@ -1,6 +1,30 @@
 \section{Theory}
 \label{sec:theory}
 
+As touched in the previous section the feed forward neural network is an advanced version of the
+perceptron in which multiple units are connected together to form the so called network. Every
+single unit represents a neuron and it's defined by incoming and outgoing directed links and
+an activation function, which in our case is the hyperbolic tangent.
+
+\begin{equation}
+    \label{eq:single-unit-activation-fun}
+    g(x) = tanh(x\gamma)
+\end{equation}
+
+The output of the network is then calculated as the sum of the activation function for every neuron
+on each layer and this represents the response of the output for a certain input $\varepsilon$.
+
+\begin{equation}
+    \sigma (\varepsilon) = (tanh(w1 \cdotp \varepsilon) + tanh(w2 \cdotp \varepsilon))
+\end{equation}
+
+In order to train the network an error function is defined and calculated after each step of the training process
+(i.e. for each input presented to the network).
+
+\begin{equation}
+    E = \frac{1}{P}\frac{1}{2} \sum_{\mu = 1}^{P} (\sigma(\varepsilon^\mu)) - \tau(\varepsilon^\mu))^2
+\end{equation}
+
 \blindtext
 
 \begin{equation}

@@ -28,7 +28,8 @@ function base(X, y, repetitions, t_max, eta, p, q)
     figure;
     ax1 = subplot(2, 1, 1);
     bar(w1);
-    title('Weights for the hidden unit 1');
+    set(gca, 'FontSize', 12);
+    title('Weights for the hidden unit 1', 'FontSize', 14);
     xlabel('Feature');
     ylabel('Weight');
     xticks(2:2:n_dim);
@@ -36,7 +37,8 @@ function base(X, y, repetitions, t_max, eta, p, q)
     ylim([-3, 3]);
     ax2 = subplot(2, 1, 2);
     bar(w2, 'r');
-    title('Weights for the hidden unit 2');
+    set(gca, 'FontSize', 12);
+    title('Weights for the hidden unit 2', 'FontSize', 14);
     xlabel('Feature');
     ylabel('Weight');
     xticks(2 : 2 : n_dim);
@@ -71,7 +73,8 @@ function base(X, y, repetitions, t_max, eta, p, q)
     hold on;
     errorbar(iterations, test_avg, test_std, 'r:', 'LineWidth', 1.25);
     hold off;
-    title(sprintf('Learning curves for P = %d', p));
+    set(gca, 'FontSize', 12);
+    title(sprintf('Learning curves for P = %d', p), 'FontSize', 14);
     xlabel('Iterations');
     ylabel('Error');
     legend('Training Error', 'Test Error');

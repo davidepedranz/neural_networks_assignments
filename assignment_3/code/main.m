@@ -3,6 +3,10 @@
 %-------------------------------------------------------
 clf; close all; clear; clc;
 
+% make sure the needed folders are available
+mkdir('results');
+mkdir('../report/figures');
+
 % settings
 repetitions = 50;
 eta = 0.05;

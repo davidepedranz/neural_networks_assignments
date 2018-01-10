@@ -59,7 +59,8 @@ function multiple_lrp(X, y, repetitions, t_max, p, q, strategies, strategies_nam
         hold on;
         errorbar(iterations, test_avg(:, s_index), test_std(:, s_index), 'r:', 'LineWidth', 1.25);
         hold off;
-        title(sprintf('Learning curves for strategy = %s', strategy));
+        set(gca, 'FontSize', 12);
+        title(sprintf('Learning curves for strategy = %s', strategy), 'FontSize', 14);
         xlabel('Iterations');
         ylabel('Error');
         legend('Training Error', 'Test Error');
@@ -84,7 +85,8 @@ function multiple_lrp(X, y, repetitions, t_max, p, q, strategies, strategies_nam
         i = i + 1;
     end
     hold off;
-    title('Learning curves for different learning strategies');
+    set(gca, 'FontSize', 12);
+    title('Learning curves for different learning strategies', 'FontSize', 14);
     xlabel('Iterations');
     ylabel('Error');
     ylim([0, 0.2]);

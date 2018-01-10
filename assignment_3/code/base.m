@@ -78,6 +78,8 @@ function base(X, y, repetitions, t_max, eta, p, q)
     xlabel('Iterations');
     ylabel('Error');
     legend('Training Error', 'Test Error');
+    curtick = get(gca, 'XTick');
+    set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));
     ylim([0, 0.5]);
     save_for_report('error');
 end

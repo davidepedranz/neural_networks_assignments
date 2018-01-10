@@ -22,3 +22,26 @@ Since the test error never increases, the model does not seem to overfit the tra
 \subsection{Training Dataset}
 
 \subsection{Training Policy}
+The learning rate is well known to influence the number of iterations the network needs to minimize
+its cost function. It is nevertheless true that a high value for this variable causes the network to
+be unstable since it learns the same amount of information from all the data that are presented to it (no matters the number of iterations).
+For this reason we decided to implement some different schedulers for the learning rate able to change its
+value over time and not to leave it fixed.
+
+The implemented learning rate policies are: \textit{fixed}, \textit{step}, \textit{exponential} and \textit{triangular}.
+In the figure below \cref{fig:learning_rates_policies} it's possible to take a look at the way they change the value of the learning rate over time (i.e. iterations).
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/learning_rates}
+	\caption{Learning rate evolution over iterations for different learning rate policies.}
+	\label{fig:learning_rates_policies}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\columnwidth]{figures/error_strategies.pdf}
+	\caption{Training and test error for different learning rate policies.}
+	\label{fig:lrp_training_error}
+\end{figure}

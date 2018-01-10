@@ -1,7 +1,0 @@
-function err = error(X, y, w_1, w_2)
-    [rows, cols] = size(X);
-    
-    for row 
-
-end
-

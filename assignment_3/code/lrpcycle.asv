@@ -1,7 +1,0 @@
-function lr = lrpcycle(eta, max_eta, step_size, )
-
-cycle = np.floor(1+iterations/(2*step_size))
-x = np.abs(iterations/step_size - 2*cycle + 1)
-    lr = @(iteration) eta + (max_lr-base_lr)*np.maximum(0, (1-(abs(iterations/step_size - 2*cycle + 1))))
-end
-

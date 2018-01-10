@@ -68,6 +68,8 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
         xlabel('Iterations');
         ylabel('Error');
         legend('Training Error', 'Test Error');
+        curtick = get(gca, 'XTick');
+        set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));
         ylim([0, 0.5]);
         save_for_report(sprintf('error_p_%d', p));
     end
@@ -94,7 +96,9 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
     title('Learning curves for different values of P', 'FontSize', 14);
     xlabel('Iterations');
     ylabel('Error');
-    ylim([0, 0.5]);
     legend(leg);
+    ylim([0, 0.5]);
+    curtick = get(gca, 'XTick');
+    set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));
     save_for_report('error_ps');
 end

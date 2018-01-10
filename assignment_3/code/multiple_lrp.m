@@ -64,6 +64,8 @@ function multiple_lrp(X, y, repetitions, t_max, p, q, strategies, strategies_nam
         xlabel('Iterations');
         ylabel('Error');
         legend('Training Error', 'Test Error');
+        curtick = get(gca, 'XTick');
+        set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));
         ylim([0, 0.5]);
         save_for_report(sprintf('error_strategy_%s', strategy));
     end
@@ -89,7 +91,9 @@ function multiple_lrp(X, y, repetitions, t_max, p, q, strategies, strategies_nam
     title('Learning curves for different learning strategies', 'FontSize', 14);
     xlabel('Iterations');
     ylabel('Error');
-    ylim([0, 0.2]);
     legend(leg);
+    curtick = get(gca, 'XTick');
+    set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));
+    ylim([0, 0.2]);
     save_for_report('error_strategies');
 end

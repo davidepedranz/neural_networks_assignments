@@ -11,7 +11,7 @@ mkdir('../report/figures');
 repetitions = 100;
 eta = 0.05;
 p = 1000;
-q = 3001;
+q = 2001;
 iterations = 20001;
 
 % load the data

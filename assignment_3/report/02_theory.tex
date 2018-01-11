@@ -20,7 +20,8 @@ where $\tau(\varepsilon^\nu))$ denotes the correct prediction for the current ex
 
 Another possibility is to use all training examples (or a batch) to perform a single update, i.e. use the following cost function instead of $e$:
 \begin{equation}
-    E = \frac{1}{2} \frac{1}{P} \sum_{\mu = 1}^{P} (\sigma(\varepsilon^\mu) - \tau(\varepsilon^\mu))^2.
+    \label{eq:cost-total}
+    E = \frac{1}{2} \frac{1}{M} \sum_{\mu = 1}^{M} (\sigma(\varepsilon^\mu) - \tau(\varepsilon^\mu))^2.
 \end{equation}
 In this case, we usually talk of Gradient Descent (or Batch Gradient Descent) instead of Stochastic Gradient Descent.
 

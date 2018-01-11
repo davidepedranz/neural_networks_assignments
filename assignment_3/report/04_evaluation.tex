@@ -49,15 +49,12 @@ For $P = 500$, the train and test error get closer and remain constant during mo
 The results for higher values of $P$ are really similar and are thus not shown.
 
 \subsection{Train Policy}
-The learning rate is well known to influence the number of iterations the network needs to minimize
-its cost function. It is nevertheless true that a high value for this variable causes the network to
-be unstable since it learns the same amount of information from all the data that are presented to it (no matters the number of iterations).
-For this reason we decided to implement some different schedulers for the learning rate able to change its
-value over time as a function of the iterations.
-
-The implemented learning rate policies (LRPs) are: \textit{fixed}, \textit{step}, \textit{exponential} and \textit{cycle}.
-In the figure below \cref{fig:learning_rates_policies} it's possible to take a look at the way they change the value of the learning rate over time,
-or better saying over the iterations.
+The learning rate influences the number of iterations the training algorithm needs to converge to the optimal weights.
+A high learning rate causes the process to be unstable while a low one takes too long time to converge.
+For this reason, we implement different schedulers for the learning rate able to change its value over time as a function of the iteration: \textit{fixed}, \textit{step}, \textit{exponential} and \textit{cycle}.
+\cref{fig:learning_rates_policies} shows how they change the learning rate over time.
+From the application of these \acp{LRP} we expect a change in the behavior of the error function.
+In most \acp{LRP} the learning rate decreases with time, so the error should get more stable.
 
 \begin{figure}
 	\centering
@@ -66,42 +63,33 @@ or better saying over the iterations.
 	\label{fig:learning_rates_policies}
 \end{figure}
 
-From the application of these learning rates we expect a change in the behavior of the error function. In particular
-since we are decreasing the learning rate from an iteration to the other we expect the error to be more stable (exception made
-for what concerns the \textit{cycle} LRP).
-
-As it is possible to see in \cref{fig:lrp_training_error} the different LRPs have different
-effects on the error and we are going to explain it more in details from case to case.
+\cref{fig:lrp_training_error} shows that different \acp{LRP} have different effects on the error trend.
+Overall, all implemented \acp{LRP} perform better than the \textit{fixed}($0.05$).
+The next sections discuss them in more detail.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{figures/error_strategies.pdf}
+	\includegraphics[width=\columnwidth]{figures/error_strategies}
 	\caption{Training and test error for different learning rate policies.}
 	\label{fig:lrp_training_error}
 \end{figure}
 
-\subsubsection{Fixed LRP}
-As the name suggests this LRP leaves the learning rate fixed during iterations. We can notice the error to drop down after around 500 iterations and then
-to remain pretty stable and to maintain a tendency to decrease slowly, meaning that the network learned most
-of the information from the data. With this data this LRP also seems to be the best performing one when a learning rate of $\eta = 0.02$ is chosen.
+\subsubsection{Fixed \ac{LRP}}
+As the name suggests this \ac{LRP} leaves the learning rate fixed during iterations.
+The error to drops down after around $500$ iterations, then decreases very slowly. 
+On our dataset, this strategy has the best performances with a learning rate $\eta = 0.02$.
 
-\subsubsection{Step LRP}
-This LRP consists in decreasing the learning rate of a defined quantity (\textit{drop}) after a certain number of iterations
-(\textit{stepsize}). In \cref{fig:learning_rates_policies} it's possible to notice that the steps happen exactly after 5'000 iterations and that
-the learning rate is reduced of $0.01$ each time.
-The decrement in the value of the learning rate mirrors in a some error's drops just after its update as it's possible to see in \cref{fig:lrp_training_error}.
+\subsubsection{Step \ac{LRP}}
+This strategy consists in decreasing the learning rate of a defined quantity (\textit{drop}) after a certain number of iterations (\textit{step\_size}).
+As shown in \cref{fig:learning_rates_policies}, we chose \textit{step\_size} = $5000$ and \textit{drop} = $0.01$.
+\cref{fig:lrp_training_error} shows a drop in both train and test error close to the step in the learning rate.
 
-\subsubsection{Exponential LRP}
-This LRP consist in decreasing the learning rate in an exponential way (i.e. dividing it by a constant value over the iterations). This
-LRP lets the network learn quickly in the beginning, when the weights are still far from the teacher, and slowly while they're getting closer. The plot
-relative to this LRP in \cref{fig:lrp_training_error} shows a smoother decrease of the error which just after 3'000 iterations tends to have a value
-smaller than $0.01\%$.
+\subsubsection{Exponential \ac{LRP}}
+This strategy consist in decreasing the learning rate in an exponential way, i.e. in dividing it by a constant value at each iteration.
+This \ac{LRP} lets the network learn quickly in the beginning, when the weights are still far from the teacher, and slowly while they are getting closer to it.
+\cref{fig:lrp_training_error} shows a smoother decrease of both the train and test errors, which just after $3000$ iterations tends to have a value smaller than $0.1$.
 
 \subsubsection{Cycle}
-This LRP consists in increasing and decreasing the learning rate linearly over the number of iterations creating a sawteeth plot as it's noticeable
-in \cref{fig:learning_rates_policies}. The aim of this LRP is to avoid local minima letting the value of the learning rate to grow again after it
-reached it's minimum value. As it's possible to see in \cref{fig:lrp_training_error} with the data provided the LRP performs well as far
-as the value of the learning rate is smaller than the \textit{fixed}($0.02$) one and then the error increases following the increase of the learning rate and never
-goes back to its early low value.
-
-Overall it's to notice that all the implemented LRPs perform better than the \textit{fixed}($0.05$), as it was expected in the introduction of this section.
+This strategy consists in increasing and decreasing the learning rate linearly over the number of iterations, creating a sawteeth plot as shown in \cref{fig:learning_rates_policies}.
+The aim of this \ac{LRP} is to avoid local minima letting the value of the learning rate to grow again when it reaches its minimum value.
+\cref{fig:lrp_training_error} shows that with the data provided the \ac{LRP} performs well as far as the value of the learning rate is smaller than the \textit{fixed}($0.02$) one, then the error increases following the increase of the learning rate and never goes back to its early low value.

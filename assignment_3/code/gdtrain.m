@@ -27,10 +27,6 @@ function [w1, w2, error_time, train_error, test_error, lr] = ...
     % initialize the array where to store the learning rate behaviours
     lr = zeros(iterations, 1);
     
-    % measure train and test error before the training start
-%     train_error(1) = gderror(X_train, y_train, w1, w2);
-%     test_error(1) = gderror(X_test, y_test, w1, w2);
-
     % train loop
     for iteration = 1 : iterations
 

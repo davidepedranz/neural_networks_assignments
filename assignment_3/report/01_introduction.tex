@@ -5,13 +5,17 @@ Feed-forward neural networks are useful tools to solve regression problems.
 They consist in a group of neurons organized in layers:
 the neurons in one layer are connected to the ones in the following layer with weighted directed connection.
 The first layer of the network is called input layer and represents the input data for the network:
-the input layer has a number of neurons equal to the number of dimensions of the dataset (plus eventually one bias unit).
+the dimension of the input layer is equal to the number of dimensions of the dataset.
 The output layer has one unit for each continue value to predict.
 Between the input and the output layer, the network can have a variable number of hidden layers:
 each layer can have a different number of neurons, usually called hidden units.
+<<<<<<< HEAD
+=======
+The output of a hidden unit is usually given by some non-linear function of the weighted sum of its input.
+>>>>>>> d7019686aea05db212386844d250dcdc095ccceb
 
 A way to train feed-forward neural networks is to define a cost function and optimize it using numerical optimization methods.
-This idea is captured in the Backpropagation training algorithm \cite{chauvin1995backpropagation}:
+This idea is captured in the Backpropagation training algorithm \cite{backpropagation}:
 given a neural network, backpropagation defines a cost (or error) function and uses Gradient Descent to minimize it with respect to the weights parameters.
 
 In this assignment, we implement and train a feed-forward neural network with $1$ hidden layer and $2$ hidden unit for a simple regression problem using Stochastic Gradient Descent and study its learning curves for different-sized training datasets and learning rate policies.

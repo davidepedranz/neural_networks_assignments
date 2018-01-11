@@ -38,6 +38,16 @@ since the weights gradient and the update rule is the same for all hidden unit, 
 	\label{fig:ps}
 \end{figure}
 
+\cref{fig:ps} shows the train and test error for different values of $P$, i.e. for a network trained on training dataset of different dimensions.
+For very small training datasets ($P = 20$, $P = 50$), the train error drops very quickly and stabilizes close to $0$;
+the test error is high and even increases during the training for $P = 50$.
+It seems like the network does not see enough examples to generalize properly to new data and tends to overfit the train set.
+
+For $P = 200$, the train error is higher, but the test error gets significantly smaller.
+Still, the test error increases during the training, which indicates overfit.
+
+For $P = 500$, the train and test error get closer and remain constant during most of the training.
+The results for higher values of $P$ are really similar and are thus not shown.
 
 \subsection{Train Policy}
 The learning rate is well known to influence the number of iterations the network needs to minimize

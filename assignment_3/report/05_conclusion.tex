@@ -1,4 +1,16 @@
 \section{Conclusion}
 \label{sec:conclusion}
 
-\blindtext
+Stochastic Gradient Descent is an effective algorithm to learn the parameters of a feed-forward neural network.
+The algorithm is iterative and takes as an input the number of iterations and a learning rate:
+it is important to choose an appropriate number of iterations and learning rate.
+If the number of iterations is too small, the algorithms does not manage to learn the optimal parameters for the network;
+if the number is too big, the model may overfit the training data and have bad performances on new data.
+Similarly, if the learning rate is too small, the training may take too long or even stuck in local minima;
+if it is too big, the updates may be too big and the model may never reach the optimal weights.
+
+In general, it is difficult to choose the appropriate learning rate.
+In some cases it may be effective to used a time-dependent one:
+for example, one may set a big learning rate at the beginning, the reduce it to make convergence easier.
+We discussed some possible strategies and their effect on our regression problem.
+However, a complete discussion of the possible learning rate policies is outside the scope of this document.

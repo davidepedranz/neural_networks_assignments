@@ -101,8 +101,8 @@ smaller than $0.01\%$.
 \subsubsection{Cycle}
 This LRP consists in increasing and decreasing the learning rate linearly over the number of iterations creating a sawteeth plot as it's noticeable
 in \cref{fig:learning_rates_policies}. The aim of this LRP is to avoid local minima letting the value of the learning rate to grow again after it
-reached it's minimum value. As it's possible to see in \cref{fig:lrp_training_error} with the data provided the learning rate performs well as far
-as the value of the learning rate is smaller than the \textit{fixed} one at $0.02$ and then the error increases increasing the learning rate and never
-drops to the early low value it reached at the beginning.
+reached it's minimum value. As it's possible to see in \cref{fig:lrp_training_error} with the data provided the LRP performs well as far
+as the value of the learning rate is smaller than the \textit{fixed}($0.02$) one and then the error increases following the increase of the learning rate and never
+goes back to its early low value.
 
-Overall it's to notice that all the implemented learning rates perform better than the \textit{fixed} one at $0.05$ as it was expected in the introduction of this section.
+Overall it's to notice that all the implemented LRPs perform better than the \textit{fixed}($0.05$), as it was expected in the introduction of this section.

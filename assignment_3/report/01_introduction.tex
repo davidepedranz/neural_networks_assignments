@@ -1,15 +1,6 @@
 \section{Introduction}
 \label{sec:introduction}
 
-<<<<<<< HEAD
-Feed-forward neural networks are a useful tool to solve regression problems.
-They consist in different levels of neurons (hidden units) called layers which have weighted directed connections with the following one.
-Such networks normally have an input layer, the one that represents the data taken as an input by the network (with a number of neurons equal
-to the dimension of the input), a variable number of layers, and therefore also hidden units, and finally an output layer, which in our case
-corresponds to the sum of the values provided by the last hidden units layer. In this network the information is passed
-just forward (i.e. to the following layer), in order to avoid loops, with the only exception of the  weights' update vectors, in which the gradient is calculated backward.
-Networks builded in this way represent an advancement of the perceptron and can reach much better performances (as in the case of storage where the capacity of a feed forward network is $\alpha = K \sqrt{ln K}$).
-=======
 Feed-forward neural networks are useful tools to solve regression problems.
 They consist in a group of neurons organized in layers:
 the neurons in one layer are connected to the ones in the following layer with weighted directed connection.
@@ -18,7 +9,6 @@ the input layer has a number of neurons equal to the number of dimensions of the
 The output layer has one unit for each continue value to predict.
 Between the input and the output layer, the network can have a variable number of hidden layers:
 each layer can have a different number of neurons, usually called hidden units.
->>>>>>> 564007362da717b7d17f6803067510b7dd2c28d6
 
 A way to train feed-forward neural networks is to define a cost function and optimize it using numerical optimization methods.
 This idea is captured in the Backpropagation training algorithm \cite{chauvin1995backpropagation}:

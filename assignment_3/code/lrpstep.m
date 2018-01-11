@@ -1,3 +1,3 @@
 function lr = lrpstep(eta, stepsize, drop)
-    lr = @(iteration) eta * drop ^ (floor(iteration/stepsize));
+    lr = @(iteration) max(eta - (drop * (floor(iteration / stepsize))), drop);
 end

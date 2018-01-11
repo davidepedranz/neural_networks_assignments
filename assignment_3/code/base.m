@@ -4,7 +4,7 @@
 % Base assignment.
 %-------------------------------------------------------
 
-function base(X, y, repetitions, t_max, eta, p, q)
+function base(X, y, repetitions, iterations, eta, p, q)
 
     % extract train and test set
     [n_examples, n_dim] = size(X);
@@ -22,7 +22,7 @@ function base(X, y, repetitions, t_max, eta, p, q)
     % train one last time to plot the weights in a bar plot
     fprintf('[BASE] weights bar plot ...\n');
     [w1, w2, ~, ~, ~, ~] = ...
-        gdtrain(X_train, y_train, X_test, y_test, t_max, fixed);
+        gdtrain(X_train, y_train, X_test, y_test, iterations, fixed);
     
     % plot weights as barplot
     figure;
@@ -49,16 +49,17 @@ function base(X, y, repetitions, t_max, eta, p, q)
     
     % repeat the experiment some times to get more reliable learning curves
     % that do not depend on the particular initialization of the weights
-    trains = zeros(t_max + 1, repetitions);
-    tests = zeros(t_max + 1, repetitions);
+    samples = 41;
+    trains = zeros(samples, repetitions);
+    tests = zeros(samples, repetitions);
     for repetition = 1 : repetitions
 
         % log the progress
         fprintf('[BASE] repetition=%d, p=%d ...\n', repetition, p);
         
         % train and save the error curves
-        [~, ~, iterations, trains(:, repetition), tests(:, repetition)] = ...
-            gdtrain(X_train, y_train, X_test, y_test, t_max, fixed);
+        [~, ~, times, trains(:, repetition), tests(:, repetition)] = ...
+            gdtrain(X_train, y_train, X_test, y_test, iterations, fixed, samples);
     end
 
     % average & std
@@ -69,17 +70,18 @@ function base(X, y, repetitions, t_max, eta, p, q)
 
     % plot the error curves
     figure;
-    errorbar(iterations, train_avg, train_std, 'b');
+    errorbar(times, train_avg, train_std, 'b');
     hold on;
-    errorbar(iterations, test_avg, test_std, 'r:', 'LineWidth', 1.25);
+    errorbar(times, test_avg, test_std, 'r:', 'LineWidth', 1.25);
     hold off;
     set(gca, 'FontSize', 12);
     title(sprintf('Learning curves for P = %d', p), 'FontSize', 14);
     xlabel('Iterations');
     ylabel('Error');
     legend('Training Error', 'Test Error');
+    xlim([0, iterations]);
+    ylim([0, 0.5]);
     curtick = get(gca, 'XTick');
     set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));
-    ylim([0, 0.5]);
     save_for_report('error');
 end

@@ -4,7 +4,7 @@
 % Different Ps.
 %-------------------------------------------------------
 
-function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
+function multiple_ps(X, y, repetitions, iterations, eta, ps, q)
 
     % utilities for the plots
     colors = [
@@ -28,9 +28,11 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
     
     % repeat the experiment some times to get more reliable learning curves
     % that do not depend on the particular initialization of the weights
+    samples = 41;
     n_ps = length(ps);
-    trains = zeros(t_max + 1, n_ps, repetitions);
-    tests = zeros(t_max + 1, n_ps, repetitions);
+    times = zeros(samples, n_ps);
+    trains = zeros(samples, n_ps, repetitions);
+    tests = zeros(samples, n_ps, repetitions);
     for repetition = 1 : repetitions
         for p_index = 1 : n_ps
 
@@ -44,8 +46,8 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
             y_train = y(train_range);
 
             % train and save the error curves
-            [~, ~, iterations, trains(:, p_index, repetition), tests(:, p_index, repetition)] = ...
-                gdtrain(X_train, y_train, X_test, y_test, t_max, fixed);
+            [~, ~, times(:, p_index), trains(:, p_index, repetition), tests(:, p_index, repetition)] = ...
+                gdtrain(X_train, y_train, X_test, y_test, iterations, fixed, samples);
         end
     end
 
@@ -59,18 +61,19 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
     for p_index = 1 : n_ps
         p = ps(p_index);
         figure;
-        errorbar(iterations, train_avg(:, p_index), train_std(:, p_index), 'b');
+        errorbar(times(:, p_index), train_avg(:, p_index), train_std(:, p_index), 'b');
         hold on;
-        errorbar(iterations, test_avg(:, p_index), test_std(:, p_index), 'r:', 'LineWidth', 1.25);
+        errorbar(times(:, p_index), test_avg(:, p_index), test_std(:, p_index), 'r:', 'LineWidth', 1.25);
         hold off;
         set(gca, 'FontSize', 12);
         title(sprintf('Learning curves for P = %d', p), 'FontSize', 14);
         xlabel('Iterations');
         ylabel('Error');
         legend('Training Error', 'Test Error');
+        xlim([0, iterations]);
+        ylim([0, 0.5]);
         curtick = get(gca, 'XTick');
         set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));
-        ylim([0, 0.5]);
         save_for_report(sprintf('error_p_%d', p));
     end
 
@@ -83,10 +86,10 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
     leg = {};
     for p = ps_plot
         p_index = find(ps == p);
-        plot(iterations, train_avg(:, p_index), 'Color', colors(i, :), ...
+        plot(times(:, p_index), train_avg(:, p_index), 'Color', colors(i, :), ...
             'Marker', markers(i), 'MarkerSize', 5);
         leg{end + 1} = sprintf('Train Error, P = %d', p);  %#ok<AGROW>
-        plot(iterations, test_avg(:, p_index), 'Color', colors(i, :), ...
+        plot(times(:, p_index), test_avg(:, p_index), 'Color', colors(i, :), ...
             'Marker', markers(i), 'MarkerSize', 5, 'LineWidth', 1.25, 'LineStyle', ':');
         leg{end + 1} = sprintf('Test  Error, P = %d', p); %#ok<AGROW>
         i = i + 1;
@@ -97,6 +100,7 @@ function multiple_ps(X, y, repetitions, t_max, eta, ps, q)
     xlabel('Iterations');
     ylabel('Error');
     legend(leg);
+    xlim([0, iterations]);
     ylim([0, 0.5]);
     curtick = get(gca, 'XTick');
     set(gca, 'XTickLabel', cellstr(num2str(curtick(:))));

@@ -8,10 +8,11 @@ mkdir('results');
 mkdir('../report/figures');
 
 % settings
-repetitions = 50;
+repetitions = 100;
 eta = 0.05;
 p = 1000;
 q = 3001;
+iterations = 20001;
 
 % load the data
 load('data/data3.mat');
@@ -22,18 +23,18 @@ y = tau';
 rng(0);
 
 % solve the basic assignment
-base(X, y, repetitions, 20, eta, p, q);
+base(X, y, repetitions, iterations, eta, p, q);
 
 % try different values for P (amount of training examples)
-multiple_ps(X, y, repetitions, 30, eta, [20, 50, 200, 500, 1000, 2000], q);
+multiple_ps(X, y, repetitions, iterations, eta, [20, 50, 200, 500, 1000, 2000], q);
 
 % different learning strategies
 strategies = {
     lrpfixed(0.05)
     lrpfixed(0.02)
-    lrpstep(0.05, 20000, 0.5)
+    lrpstep(0.05, 5000, 0.01)
     lrpexp(0.05, 20000, 0.1)
-    lrpcycle(0.01, 10000, 0.05)
+    lrpcycle(0.01, 5000, 0.05)
 };
 strategies_names = {
     "fixed (0.05)"
@@ -44,4 +45,4 @@ strategies_names = {
 };
 
 % experiments with different learning strategies
-multiple_lrp(X, y, repetitions, 30, p, q, strategies, strategies_names);
+multiple_lrp(X, y, repetitions, iterations, p, q, strategies, strategies_names);

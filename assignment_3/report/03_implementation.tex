@@ -2,4 +2,23 @@
 \label{sec:implementation}
 
 \subsection{Gradient descent}
-\blindtext
+To implement the training of our feed-forward network via gradient descent we first initialized the weights' vectors with random values and then
+normalized it. This step was necessary because otherwise they would have been updated in the same way, which would have resulted
+in having two completely identical vectors at the end of the training.
+After that we iterated for a number of times which is directly proportional to the number of elements ($P$) contained in the training set and a set parameter
+$t_{max}$ which represents the number of epochs. At each step of the iteration we calculate the gradient descent respect to each weights' vector
+with the piece of code reported below.
+
+\begin{lstlisting}[language=Matlab] 
+    function [g1, g2] = gd(example, tau, w1, w2)
+
+        tanh_w1 =  tanh(example * w1);
+        tanh_w2 = tanh(example * w2);
+        sigma = tanh_w1 + tanh_w2;
+        
+        g_comp =  (sigma - tau) * example';
+        g1 = g_comp * (1 - (tanh_w1^2));
+        g2 = g_comp * (1 - (tanh_w2^2));
+    end
+\end{lstlisting}
+

@@ -1,4 +1,7 @@
 function save_for_report(name, axs, extra_margin)
+    %SAVE_FOR_REPORT: print a nice plot, ready to be include in the LaTeX
+    %report. This function will store the PDF in the report folder.
+
     switch nargin
         case 1
             axs = gca;

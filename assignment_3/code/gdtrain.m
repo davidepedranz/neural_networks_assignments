@@ -1,8 +1,7 @@
 function [w1, w2, error_time, train_error, test_error, lr] = ...
     gdtrain(X_train, y_train, X_test, y_test, iterations, lr_policy, samples)
-    
-    % Train a neural network with 1 hidden layer and 2 hidden units
-    % using stochastic gradient descent.
+    %GDTRAIN Train a neural network with 1 hidden layer and 2 hidden units
+    %using stochastic gradient descent.
     
     switch nargin
         case 6

@@ -38,49 +38,50 @@
 \RequirePackage{xstring}
 \RequirePackage{xparse}
 \RequirePackage[index=true]{acro}
+
 \NewDocumentCommand\acrodef{mO{#1}mG{}}{\DeclareAcronym{#1}{short={#2}, long={#3}, #4}}
 \NewDocumentCommand\acused{m}{\acuse{#1}}
 
 \acrodef{LRP}{learning rate policy}
+\acrodef{LRPs}{learning rate policies}
 
 \begin{document}
 
-\title{
-    Learning by gradient descent\\
-    \large Neural Networks and Computational Intelligence - Practical Assignment III
-}
+    \title{
+        Learning by gradient descent\\
+        \large Neural Networks and Computational Intelligence - Practical Assignment III
+    }
 
-\author{
-    \IEEEauthorblockN{Samuel Giacomelli}
-    \IEEEauthorblockA{\small Student Number: S3546330 \\ s.giacomelli@student.rug.nl}
-    \and
-    \IEEEauthorblockN{Davide Pedranz}
-    \IEEEauthorblockA{\small Student Number: S3543757 \\ d.pedranz@student.rug.nl}
-}
+    \author{
+        \IEEEauthorblockN{Samuel Giacomelli}
+        \IEEEauthorblockA{\small Student Number: S3546330 \\ s.giacomelli@student.rug.nl}
+        \and
+        \IEEEauthorblockN{Davide Pedranz}
+        \IEEEauthorblockA{\small Student Number: S3543757 \\ d.pedranz@student.rug.nl}
+    }
 
-\maketitle
+    \maketitle
 
-\begin{abstract}
-    Feed-forward neural networks are powerful devices used to solve regression problems.
-    Since a network is formed by many units and the output is a continuous value, the algorithms designed for the perceptron can not be used for the training.
-    A possible approach to solve the problem is to define a cost function on the training examples and minimize it using numerical optimization techniques.
-    In this assignment, we implement Stochastic Gradient Descent as a numerical optimization method to train a feed-forward network with 1 hidden layer of 2 units.
-\end{abstract}
+    \begin{abstract}
+        Feed-forward neural networks are powerful devices used to solve regression problems.
+        Since a network is formed by many units and the output is a continuous value, the algorithms designed for the perceptron can not be used for the training.
+        A possible approach to solve the problem is to define a cost function on the training examples and minimize it using numerical optimization techniques.
+        In this assignment, we implement Stochastic Gradient Descent as a numerical optimization method to train a feed-forward network with 1 hidden layer of 2 units.
+    \end{abstract}
 
-\acresetall
+    \acresetall
 
-\input{01_introduction}
-\input{02_theory}
-\input{03_implementation}
-\input{04_evaluation}
-\input{05_conclusion}
-\input{06_work}
+    \input{01_introduction}
+    \input{02_theory}
+    \input{03_implementation}
+    \input{04_evaluation}
+    \input{05_conclusion}
+    \input{06_work}
 
-\bibliographystyle{IEEEtran}
-\bibliography{references}
+    \bibliographystyle{IEEEtran}
+    \bibliography{references}
 
-\newpage
-\onecolumn
-\input{07_appendix}
+    \onecolumn
+    \input{07_appendix}
 
 \end{document}

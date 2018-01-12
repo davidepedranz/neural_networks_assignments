@@ -14,10 +14,10 @@ with $Q > P$.
 Since we choose $P \in [1, 2000]$ in different experiments, we fix $Q = 2001$ for all experiments, in order to always test on the same dataset. 
 
 \subsection{Stochastic Gradient Descent}
-The first step of out implementation of Stochastic Gradient Descent is to initialize the weights' vectors with random values and then normalize them to have unit norm $||w_j|| = 1$.
+The first step of our implementation of Stochastic Gradient Descent is to initialize the weights' vectors with random values and then normalize them to have unit norm $||w_j|| = 1$.
 It is important to initialize the weights randomly in order to avoid symmetry problems:
-since the weights gradient and the update rule is the same for all hidden unit, the updates at each epoch will also be the same, which causes all units to learn the same final weights and reduces the representation power of the network.
+since the weights gradient and the update rule is the same for all hidden unit, the updates at each epoch are also the same, which causes all units to learn the same final weights and reduces the representation power of the network.
 Then, we perform a given number of updates:
-at each iteration, we randomly select an example $\nu$ from the training dataset, compute the gradient with respect to the weights (\cref{sub:gradients}) and update them according to \cref{eq:weights-update}.
+at each iteration, we randomly select an example $\nu$ from the training dataset, compute the gradient with respect to the weights (see \cref{sub:gradients}) and update them according to \cref{eq:weights-update}.
 
-At regular interval (i.e. after a fixed number of iterations), we compute the error on both the training and the test sets, as shown in \cref{eq:cost-total}.
+At regular intervals (i.e. after a fixed number of iterations), we compute the error on both the entire training and the test sets, as shown in \cref{eq:cost-total}.

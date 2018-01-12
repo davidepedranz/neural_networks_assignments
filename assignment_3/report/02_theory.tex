@@ -3,8 +3,8 @@
 
 \subsection{Gradient Descent}
 The aim of Stochastic Gradient Descent is to minimize the neural network' cost function with respect to its weights.
-The algorithm initialized the weights to random values.
-Then, it iteratively select some training example $\nu$ and updates the weights by some fraction $\eta$ (usually called learning rate) of the gradient of the cost function $e^\nu$:
+The algorithm initializes the weights to random values.
+Then, it iteratively select some training example $\nu$ from the training dataset $\mathbb{D}_{train}$ and updates the weights by some fraction $\eta$ (usually called learning rate) of the gradient $\nabla_{w_j} e^\nu$ of the cost function $e^\nu$ with respect to the network's weights $w_j$:
 \begin{equation}
     \label{eq:weights-update}
     w_j \leftarrow w_j - \eta \cdot \nabla_{w_j} e^\nu.
@@ -18,7 +18,7 @@ A common choice is to use the squared error for the current example $\varepsilon
 \end{equation}
 where $\tau(\varepsilon^\nu))$ denotes the correct prediction for the current example.
 
-Another possibility is to use all training examples (or a batch) to perform a single update, i.e. use the following cost function instead of $e$:
+Another possibility is to use all training examples (or a batch of them) to perform a single update, i.e. using the following cost function instead of $e$:
 \begin{equation}
     \label{eq:cost-total}
     E = \frac{1}{2} \frac{1}{M} \sum_{\mu = 1}^{M} (\sigma(\varepsilon^\mu) - \tau(\varepsilon^\mu))^2.

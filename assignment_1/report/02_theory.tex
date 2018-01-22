@@ -24,7 +24,12 @@ The formula used to computed the values of the updated weight vectors is reporte
 
 \begin{equation}
     \label{eq:perceptron-weight-update}
-    \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) + \frac{1}{N} \big[c - E^{v(t)}\big] \bm{\xi}^{v(t)} S^{v(t)}_R
+    \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) + \frac{1}{N} \Theta \big[c - E^{v(t)}\big] \bm{\xi}^{v(t)} S^{v(t)}_R,     
 \end{equation}
+\[ \Theta[a] =  \begin{cases} 
+    1 & a > 0 \\
+    0 & a \leq 0 
+\end{cases}
+\]
 
 The learning process (i.e. the presentation of the input and the update of the weights) is iterated until either the perceptron is able to classify correctly all the data contained in the training set or it reaches a maximum number of epochs (i.e. iterations).

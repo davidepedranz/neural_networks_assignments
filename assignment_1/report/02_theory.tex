@@ -19,17 +19,36 @@ The training process consists in presenting at every step $t$ an input vector $\
     E^\mu = \mathsf{\bm{w}} \cdotp \xi^\mu - S^\mu_R
 \end{equation}
 
-The weights update consists in increasing (or decreasing) their previous value by an amount proportional to the error made by the perceptron while solving the previous classification task.
+The weights update consists in increasing (or decreasing) their previous value just when a mistake is done during the classification. This feature, called learning from mistakes,
+is represented by the function $\Theta$, \cref{eq:heaviside-fun}. The amount of the update consists in the Hebbian term $\bm{\xi}^\mu S^\mu_R$ (i.e. $input \times output$).
 The formula used to computed the values of the updated weight vectors is reported in \cref{eq:perceptron-weight-update}.
 
-\begin{equation}
+\begin{gather}
     \label{eq:perceptron-weight-update}
-    \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) + \frac{1}{N} \Theta \big[c - E^{v(t)}\big] \bm{\xi}^{v(t)} S^{v(t)}_R,     
-\end{equation}
-\[ \Theta[a] =  \begin{cases} 
-    1 & a > 0 \\
-    0 & a \leq 0 
-\end{cases}
-\]
+    \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) + \frac{1}{N} \Theta \big[c - E^{v(t)}\big] \bm{\xi}^{v(t)} S^{v(t)}_R, \\
+    \Theta[a] =  \begin{cases} \label{eq:heaviside-fun}
+        1 & a > 0 \\
+        0 & a \leq 0 
+    \end{cases}
+\end{gather}
 
 The learning process (i.e. the presentation of the input and the update of the weights) is iterated until either the perceptron is able to classify correctly all the data contained in the training set or it reaches a maximum number of epochs (i.e. iterations).
+
+With this piece of work we want to investigate the maximum storage capacity of the perceptron, knowing that it is strictly related to $P$ (examples in the dataset) and $N$ (dimension of the examples).
+In \cref{eq:prob-lin-sep} we report the theoretical limit expressed in form of $P_{l.s.}(P,N)$, the probability for linear separability (random $S^\mu = \pm 1$, with probability $\nicefrac{1}{2}$).
+
+\begin{equation} \label{eq:prob-lin-sep}
+    P_{l.s.}(P,N) = \begin{cases}
+        \hfil 1 & \text{for} \; P \leq N\\
+        2^{1-P} \sum^{N-1}_{i=0} \binom{P - 1}{i} & \text{for} \; P > N       
+    \end{cases}
+\end{equation}
+
+For $N \rightarrow \infty$, $P_{l.s.}(P,N)$ has a well-defined behavior, which can be summarized by \cref{eq:prob-lin-sep-alpha} in terms of $\alpha = \nicefrac{P}{N}$.
+
+\begin{equation} \label{eq:prob-lin-sep-alpha}
+    P_{l.s.}(P,N) = \begin{cases}
+        1 & \text{for} \; \alpha \leq 2\\
+        0 & \text{for} \; \alpha > 2
+    \end{cases}
+\end{equation} 

@@ -91,10 +91,10 @@ figure \ref{fig:multiple_c_multiple_epoch}.
 \end{figure}
 
 We run an experiment to verify the behaviour of $Q_{l.s.}$ by allowing inhomogeneous hyperplanes:
-we trained both a normal and modified perceptron on $200$ different datasets using $N = 500$, $n_max = 200$. 
+we trained both a normal and modified perceptron on $200$ different datasets using $N = 500$, $n_{max} = 200$. 
 \cref{fig:homogeneous} shows the results of the experiment.
 As expected, the success rate $Q_{l.s.}$ of the inhomogeneous perceptron is slightly higher than homogeneous one.
-However, the difference is not significant.
+However, the difference is not significant, since data points follow a normal distribution $\xi^\mu_j \sim \mathcal{N}(0,\,1)$ and are therefore distributed around the origin.
 
 The problem of finding an inhomogeneously solution in $R^{N}$ can be solved by finding a homogeneously solution in $R^{N + 1}$.
 In a second experiment, we compare the success rate $Q_{l.s.}$ of an inhomogeneous perceptron for $N = 500$ with an homogeneous perceptron for $N = 501$.

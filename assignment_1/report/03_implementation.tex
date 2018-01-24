@@ -15,7 +15,7 @@ The labels $S^\mu$ are assuming the values $\{+1, -1\}$ with equal probability o
 \subsection{Perceptron Training}
 The next step is to use the Rosenblatt algorithm to implement and train a perceptron on the generated dataset.
 The Rosenblatt algorithm is a sequential procedure that learns the weights of the perceptron from the examples.
-The weights are initialized to zero, then the training examples are presented one by one to the perceptron for a given number of epochs (iterations).
+The weights are initialized to zero, then the training examples are presented one by one to the perceptron for a given number of iterations.
 If the example is correctly classified according to the current weights, no update is performed;
 if the example is wrongly classified, the weights are updated according to the following rule:
 \begin{gather} 
@@ -28,11 +28,11 @@ if the example is wrongly classified, the weights are updated according to the f
     \label{eq:update-rule}
 \end{gather}
 where $E^{\mu(t)} = \mathsf{\bm{w}}(t) \cdot \xi^{\mu(t)} S^{\mu(t)}$, $t = 1, 2, ...$ represents the current time step and $\mu(t) = 1, 2, ..., P, 1, 2, ...$ identifies the current example.
-The algorithm is stopped either when $E^\mu > 0$ for all examples in the dataset or the maximum number of epochs $n_{max}$ is reached.
+The algorithm is stopped either when $E^\mu > 0$ for all examples in the dataset or the maximum number of iterations $n_{max}$ is reached.
 
 \subsection{Experiments}
 For a fixed value of $P$ and $N$, $n_D$ independent datasets are generated.
-A new perceptron is trained on each dataset for at most $n_{max}$ epochs.
+A new perceptron is trained on each dataset for at most $n_{max}$ iterations.
 For each dataset, we compute the rate fraction $Q_{l.s.}$ of successful runs, where a run is successful if the perceptron correctly classifies each example in the dataset at the end of the training phase.
 $Q_{l.s.}$ gives an estimate of the probability that the perceptron finds a linear separation in a random dataset of $P$ independent points in $N$ dimension.
 
@@ -42,7 +42,7 @@ In other words, we study the probability of the perceptron to find a linear sepa
 \subsection{Bonus}
 \subsubsection{Weight Update Criterion}
 We modified the function to train the perceptron to update the weights vector $\mathsf{\bm{w}}$ if $E^\mu < c$ instead of $E^\mu < 0$ (see \cref{eq:update-rule}).
-Also, we changed the algorithm to stop the training only if $E^{\mu} > c$ for all examples in the dataset or the maximum number of epochs $n_{max}$ is reached.
+Also, we changed the algorithm to stop the training only if $E^{\mu} > c$ for all examples in the dataset or the maximum number of iterations $n_{max}$ is reached.
 
 \subsubsection{Inhomogeneous Perceptrons}
 Rosenblatt perceptrons only learns separation hyperplanes that goes through the origin (homogeneous).

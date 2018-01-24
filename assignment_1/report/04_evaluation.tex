@@ -16,9 +16,9 @@ As expected, the function looks like a step function from $1$ to $0$.
 For $\alpha \approx 1.7$, the success rate $Q_{l.s.}$ drops from $1$ to $0$ very quickly. 
 
 The value of $\alpha$ for which the function drops is called storage capacity of the perceptron.
-For $N \to \infty$ (very large number of examples) and $n_{max} \to \infty$ (no limit on the maximum number of training epochs), the theoretical storage capacity of the Rosenblatt perceptron is $\alpha = 2$.
+For $N \to \infty$ (very large number of examples) and $n_{max} \to \infty$ (no limit on the maximum number of training iterations), the theoretical storage capacity of the Rosenblatt perceptron is $\alpha = 2$.
 
-\subsection{Number of Epochs}
+\subsection{Number of Iterations}
 \label{subsec:epochs}
 \begin{figure}[t]
 	\centering
@@ -27,9 +27,9 @@ For $N \to \infty$ (very large number of examples) and $n_{max} \to \infty$ (no 
 	\label{fig:multiple_epochs}
 \end{figure}
 
-The difference between the theoretical value and the experimental one are mainly due to the limited number of training epochs.
+The difference between the theoretical value and the experimental one are mainly due to the limited number of training iterations.
 \cref{fig:multiple_epochs} gives an experimental proof of this statement:
-for a very small number of epochs (eg. $n_{max} = 10$), the step is close to $\alpha = 1$, while for higher values of epochs the step moves closer and closer to the theoretical value $\alpha = 2$ found with \cref{eq:prob-lin-sep-alpha}.
+for a very small number of iterations (eg. $n_{max} = 10$), the step is close to $\alpha = 1$, while for higher values of iterations the step moves closer and closer to the theoretical value $\alpha = 2$ found with \cref{eq:prob-lin-sep-alpha}.
 The theoretical result still remains far from the practical one because of the limited size of input's dimension $N$.
 
 \subsection{Number of Dimensions}
@@ -59,25 +59,25 @@ the smaller $N$ is, the higher is the smoothing.
 The first experiment we ran to try to understand the contribute of the variable $c$ in the algorithm consisted in training the perceptron for different
 values of it. As it is possible to notice in figure \ref{fig:multiple_c} the main effect is a shift to the left of the curve. This result was expected, because
 $c$ introduces a step greater than zero in order to proceed to with the update of the weights vector. What we thought is that if the value needed to perform
-the update in greater also the number of epochs needed should be greater, proposing the hypothesis that $c$ works as a simple version of the learning rate that
+the update in greater also the number of iterations needed should be greater, proposing the hypothesis that $c$ works as a simple version of the learning rate that
 we find in more complex neural networks.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\columnwidth]{figures/bonus_2_epoch}
-    \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of $epochs$ with fixed value of $c=2$.}
+    \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of iterations with fixed value of $c=2$.}
 	\label{fig:fixed_c_multiple_epoch}
 \end{figure}
-For this reason we decided to simulate the behaviour of the curve for a given value of $c > 0$ and an increasing number of epochs. As it is possible to see
-in figure \ref{fig:fixed_c_multiple_epoch} by increasing the number of epochs we \'pushed\' the curve toward the values that we got in the original experiment shown
+For this reason we decided to simulate the behaviour of the curve for a given value of $c > 0$ and an increasing number of iterations. As it is possible to see
+in figure \ref{fig:fixed_c_multiple_epoch} by increasing the number of iterations we \'pushed\' the curve toward the values that we got in the original experiment shown
 in figure \ref{fig:base}, contrasting the effect of the increased value of $c$. The results we got from this experiment supported our hypothesis that $c$ behaves like
-a learning rate. In fact the algorithm reaches almost the same results for different values of the variables and consistently modified number of epochs as reported in
+a learning rate. In fact the algorithm reaches almost the same results for different values of the variables and consistently modified number of iterations as reported in
 figure \ref{fig:multiple_c_multiple_epoch}.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\columnwidth]{figures/bonus_2_c_epoch}
-    \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of $epochs$ and $c$.}
+    \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of iterations and $c$.}
 	\label{fig:multiple_c_multiple_epoch}
 \end{figure}
 

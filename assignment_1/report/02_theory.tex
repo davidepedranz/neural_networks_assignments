@@ -1,40 +1,36 @@
 \section{Theory}
 \label{sec:fundamentals}
-The Perceptron is the first attempt to create a mathematical model of a biological neuron:
-like a neuron, it has incoming and outgoing connections.
-Since it is a standalone model the incoming connections are represented by a weights' vector and the only outgoing one consists in a value and represents the output of the Perceptron (i.e. the result of the classification).
-The perceptron has $N$ incoming connections, where $N$ is the dimension of the labels' vector $\xi$ taken as an input (or in the biological context the information coming from the other neurons).
 
-The sign of the dot product between these labels ($N$) and the vector containing the weights ($\mathsf{\bm{w}}$) minus a certain threshold $\theta$ is computed and results in the state (active or inactive) of the perceptron (i.e. the result of the classification problem), the complete formula is reported below (\cref{eq:perceptron-activation}).
-
+The perceptron is the first mathematical model of a biological neuron.
+Like a neuron, it has $N$ incoming connections, which represents the input, and $1$ outgoing connection, which represents the output (i.e. the class of the given example).
+The output $S$ is a function of the input $\xi$, defined as the sign of the weighted sum of the input vector:
 \begin{equation}
-    S = sign(\mathsf{\bm{w}} \cdotp \xi) = \pm 1
+    S = sign(\mathsf{\bm{w}} \cdotp \xi) = \pm 1,
     \label{eq:perceptron-activation}
 \end{equation}
+where $\mathsf{\bm{w}}$ is an $N$-dimensional vector.
+The $sign$ function simulates the activation function of the biological neuron and forces the possible output values to $\pm 1$.
 
-The training process consists in presenting at every step $t$ an input vector $\xi$ to the perceptron, compute the error as how much the classification was distant from the correct labeling $\bm{S}$ (\cref{eq:perceptron-error}) and update the values of the weights' vector in case the former calculated error is greater than zero (or in general $c$, with $c > 0$).
+The training process aims at learning the optimal weights vector $\mathsf{\bm{w}}$ to classify correctly all examples.
+At time $t$, an example $\xi^t$ is presented to the perceptron:
+if the output equals to the correct class $S^t$, $\mathsf{\bm{w}}$ is not changed;
+if the output is wrong, a learning step is performed to correct $\mathsf{\bm{w}}$.
+The procedure is repeated until the perceptron correctly classifies all the training dataset or until some maximum number of iterations is reached.
 
-\begin{equation}
-    \label{eq:perceptron-error}
-    E^\mu = \mathsf{\bm{w}} \cdotp \xi^\mu - S^\mu_R
-\end{equation}
-
-The weights update consists in increasing (or decreasing) their previous value just when a mistake is done during the classification. This feature, called learning from mistakes,
-is represented by the function $\Theta$, \cref{eq:heaviside-fun}. The amount of the update consists in the Hebbian term $\bm{\xi}^\mu S^\mu_R$ (i.e. $input \times output$).
-The formula used to computed the values of the updated weight vectors is reported in \cref{eq:perceptron-weight-update}.
-
+The Rosenblatt Perceptron training procedure is formally defined as:
 \begin{gather}
     \label{eq:perceptron-weight-update}
-    \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) + \frac{1}{N} \Theta \big[c - E^{v(t)}\big] \bm{\xi}^{v(t)} S^{v(t)}_R, \\
-    \Theta[a] =  \begin{cases} \label{eq:heaviside-fun}
-        1 & a > 0 \\
-        0 & a \leq 0 
-    \end{cases}
+    \mathsf{\bm{w}}(t+1) = \mathsf{\bm{w}}(t) + \frac{1}{N} \Theta \big[c - E^{v(t)}\big] \xi^{v(t)} S^{v(t)}, \\
+    \Theta[c - E^{\mu}] =  \begin{cases} \label{eq:heaviside-fun}
+        1 & E^{\mu} \leq c \\
+        0 & E^{\mu} > c
+    \end{cases},
 \end{gather}
+where $E^{v(t)} = \mathsf{\bm{w}}(t) \cdot \xi^{v(t)} S^{v(t)}$.
+The weights are initialized as $\mathsf{\bm{w}}(0) = 0$.
+The product $\xi^{v(t)} S^{v(t)}$ is called Hebbian term.
 
-The learning process (i.e. the presentation of the input and the update of the weights) is iterated until either the perceptron is able to classify correctly all the data contained in the training set or it reaches a maximum number of epochs (i.e. iterations).
-
-With this piece of work we want to investigate the maximum storage capacity of the perceptron, knowing that it is strictly related to $P$ (examples in the dataset) and $N$ (dimension of the examples).
+In this work, we want to investigate the storage capacity of the perceptron as a function of the number of examples $P$ and the number of dimensions $N$.
 In \cref{eq:prob-lin-sep} we report the theoretical limit expressed in form of $P_{l.s.}(P,N)$, the probability for linear separability (random $S^\mu = \pm 1$, with probability $\nicefrac{1}{2}$).
 
 \begin{equation} \label{eq:prob-lin-sep}

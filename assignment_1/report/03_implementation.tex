@@ -19,14 +19,15 @@ The weights are initialized to zero, then the training examples are presented on
 If the example is correctly classified according to the current weights, no update is performed;
 if the example is wrongly classified, the weights are updated according to the following rule:
 \begin{gather} 
-    w(0) = 0, \\
-    w(t + 1) =  \begin{cases}
-                    w(t) + \frac{1}{N} \xi^{\mu(t)} S^{\mu(t)} &\text{if $E^{\mu(t)} \leq 0$}\\
-                    w(t) &\text{else}
-                \end{cases},
+    \mathsf{\bm{w}}(0) = 0, \\
+    \mathsf{\bm{w}}(t + 1) =
+        \begin{cases}
+            \mathsf{\bm{w}}(t) + \frac{1}{N} \xi^{\mu(t)} S^{\mu(t)} &\text{if $E^{\mu(t)} \leq 0$}\\
+            \mathsf{\bm{w}}(t) &\text{else}
+        \end{cases},
     \label{eq:update-rule}
 \end{gather}
-where $E^{\mu(t)} = w(t) \xi^{\mu(t)} S^{\mu(t)}$, $t = 1, 2, ...$ represents the current time step and $\mu(t) = 1, 2, ..., P, 1, 2, ...$ identifies the current example.
+where $E^{\mu(t)} = \mathsf{\bm{w}}(t) \cdot \xi^{\mu(t)} S^{\mu(t)}$, $t = 1, 2, ...$ represents the current time step and $\mu(t) = 1, 2, ..., P, 1, 2, ...$ identifies the current example.
 The algorithm is stopped either when $E^\mu > 0$ for all examples in the dataset or the maximum number of epochs $n_{max}$ is reached.
 
 \subsection{Experiments}
@@ -40,7 +41,7 @@ In other words, we study the probability of the perceptron to find a linear sepa
 
 \subsection{Bonus}
 \subsubsection{Weight Update Criterion}
-We modified the function to train the perceptron to update the weights' vector $\mathsf{\bm{w}}$ if $E^\mu < c$ instead of $E^\mu < 0$ (see \cref{eq:update-rule}).
+We modified the function to train the perceptron to update the weights vector $\mathsf{\bm{w}}$ if $E^\mu < c$ instead of $E^\mu < 0$ (see \cref{eq:update-rule}).
 Also, we changed the algorithm to stop the training only if $E^{\mu} > c$ for all examples in the dataset or the maximum number of epochs $n_{max}$ is reached.
 
 \subsubsection{Inhomogeneous Perceptrons}
@@ -50,4 +51,4 @@ In general, a solution to the classification problem may be a hyperplane that do
     S = sign(\mathsf{\bm{w}} \cdotp \xi + \theta) = \pm 1
 \end{equation}
 
-It is possible to generalize the Rosenblatt perceptron to learn also inhomogeneous separation hyperplanes by adding an artificial dimension to the dataset and forcing it to a non-zero constant (e.g. $-1$) and increasing the size of the weights' vector $\mathsf{\bf{w}}$ by one (the last element of $\mathsf{\bf{w}}$ corresponds to the intercept $\theta$).
+It is possible to generalize the Rosenblatt perceptron to learn also inhomogeneous separation hyperplanes by adding an artificial dimension to the dataset and forcing it to a non-zero constant (e.g. $-1$) and increasing the size of the weights vector $\mathsf{\bf{w}}$ by one (the last element of $\mathsf{\bf{w}}$ corresponds to the intercept $\theta$).

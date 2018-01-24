@@ -31,7 +31,7 @@ The weights are initialized as $\mathsf{\bm{w}}(0) = 0$.
 The product $\xi^{v(t)} S^{v(t)}$ is called Hebbian term.
 
 In this work, we want to investigate the storage capacity of the perceptron as a function of the number of examples $P$ and the number of dimensions $N$.
-In \cref{eq:prob-lin-sep} we report the theoretical limit expressed in form of $P_{l.s.}(P,N)$, the probability for linear separability (random $S^\mu = \pm 1$, with probability $\nicefrac{1}{2}$).
+In \cref{eq:prob-lin-sep} we report the theoretical limit expressed in form of $P_{l.s.}(P,N)$, the probability for linear separability (random $S^\mu = \pm 1$, with probability $0.5$).
 
 \begin{equation} \label{eq:prob-lin-sep}
     P_{l.s.}(P,N) = \begin{cases}
@@ -40,7 +40,7 @@ In \cref{eq:prob-lin-sep} we report the theoretical limit expressed in form of $
     \end{cases}
 \end{equation}
 
-For $N \rightarrow \infty$, $P_{l.s.}(P,N)$ has a well-defined behavior, which can be summarized by \cref{eq:prob-lin-sep-alpha} in terms of $\alpha = \nicefrac{P}{N}$.
+For $N \rightarrow \infty$, $P_{l.s.}(P,N)$ has a well-defined behavior, which can be summarized by \cref{eq:prob-lin-sep-alpha} in terms of $\alpha = P / N$.
 
 \begin{equation} \label{eq:prob-lin-sep-alpha}
     P_{l.s.}(P,N) = \begin{cases}

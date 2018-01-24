@@ -48,7 +48,7 @@ Also, we changed the algorithm to stop the training only if $E^{\mu} > c$ for al
 Rosenblatt perceptrons only learns separation hyperplanes that goes through the origin (homogeneous).
 In general, a solution to the classification problem may be a hyperplane that does not go through the origin (inhomogeneous), but be in the form:
 \begin{equation}
-    S = sign(\mathsf{\bm{w}} \cdotp \xi + \theta) = \pm 1
+    S = sign(\mathsf{\bm{w}} \cdot \xi + \theta) = \pm 1
 \end{equation}
 
-It is possible to generalize the Rosenblatt perceptron to learn also inhomogeneous separation hyperplanes by adding an artificial dimension to the dataset and forcing it to a non-zero constant (e.g. $-1$) and increasing the size of the weights vector $\mathsf{\bf{w}}$ by one (the last element of $\mathsf{\bf{w}}$ corresponds to the intercept $\theta$).
+It is possible to generalize the Rosenblatt perceptron to learn also inhomogeneous separation hyperplanes by adding an artificial dimension to the dataset and forcing it to a non-zero constant (e.g. $-1$) and increasing the size of the weights vector $\mathsf{\bf{w}}$ by $1$ (the last element of $\mathsf{\bf{w}}$ corresponds to the intercept $\theta$).

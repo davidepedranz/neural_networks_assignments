@@ -30,21 +30,23 @@ where $E^{v(t)} = \mathsf{\bm{w}}(t) \cdot \xi^{v(t)} S^{v(t)}$.
 The weights are initialized as $\mathsf{\bm{w}}(0) = 0$.
 The product $\xi^{v(t)} S^{v(t)}$ is called Hebbian term.
 
-In this work, we want to investigate the storage capacity of the perceptron as a function of the number of examples $P$ and the number of dimensions $N$.
-In \cref{eq:prob-lin-sep} we report the theoretical limit expressed in form of $P_{l.s.}(P,N)$, the probability for linear separability (random $S^\mu = \pm 1$, with probability $0.5$).
-
-\begin{equation} \label{eq:prob-lin-sep}
-    P_{l.s.}(P,N) = \begin{cases}
-        \hfil 1 & \text{for} \; P \leq N\\
+The performances of the perceptron are related to the storage capacity of hyperplane defined by the its weights.
+For a random dataset with $P$ examples and $N$ dimensions (where $S^\mu = 1$ with probability 0.5), the theoretical probability of linear separability $P_{l.s.}(P,N)$ is given by:
+\begin{equation}
+    P_{l.s.}(P,N) =
+    \begin{cases}
+        \hfil 1 & \text{for} \; P \leq N \\
         2^{1-P} \sum^{N-1}_{i=0} \binom{P - 1}{i} & \text{for} \; P > N       
     \end{cases}
+    \label{eq:prob-lin-sep}
 \end{equation}
 
-For $N \rightarrow \infty$, $P_{l.s.}(P,N)$ has a well-defined behavior, which can be summarized by \cref{eq:prob-lin-sep-alpha} in terms of $\alpha = P / N$.
-
+For $N \rightarrow \infty$, $P_{l.s.}(P,N)$ has a well-defined behavior:
 \begin{equation} \label{eq:prob-lin-sep-alpha}
-    P_{l.s.}(P,N) = \begin{cases}
-        1 & \text{for} \; \alpha \leq 2\\
+    P_{l.s.}(P,N) =
+    \begin{cases}
+        1 & \text{for} \; \alpha \leq 2 \\
         0 & \text{for} \; \alpha > 2
-    \end{cases}
-\end{equation} 
+    \end{cases},
+\end{equation}
+where $\alpha = P / N$.

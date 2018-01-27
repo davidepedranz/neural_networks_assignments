@@ -69,27 +69,55 @@ else
     save('results/bonus_2_epoch.mat', 'epoch_success_rates');
 end
 
+% markers for the plots
+mrk={'-o','-s','-*','-v','-+','-^'};
+
+% different epochs and c
 figure;
 hold on;
+box on;
+set(gca, 'LineStyleOrder', mrk(1));
 plot(alphas, c_epoch_success_rates(1, :));
+set(gca, 'LineStyleOrder', mrk(2));
 plot(alphas, c_epoch_success_rates(2, :));
-title('Success rate over alpha');
+set(gca, 'FontSize', 12)
+title('Storage Success Rate', 'FontSize', 14);
 xlabel('Alpha = P / N');
 ylabel('Success rate');
-legend(sprintf("c=%.1f, epochs= %d", c_2(1), epochs(1)), sprintf("c=%.1f, epochs=%d", c_2(2), epochs(3)));
+legend(sprintf("c=%.1f, iterations=%4d", c_2(1), epochs(1)), sprintf("c=%.1f, iterations=%4d", c_2(2), epochs(3)));
 hold off;
 save_for_report('bonus_2_c_epoch');
 
+% different c, fixed epochs
+figure;
+hold on;
+box on;
+for plot_n = (1:size(c_success_rates,1))
+    set(gca, 'LineStyleOrder', mrk(mod(plot_n, length(mrk))));
+    plot(alphas, c_success_rates(plot_n, :));
+end
+set(gca, 'FontSize', 12)
+title('Storage Success Rate', 'FontSize', 14);
+xlabel('Alpha = P / N');
+ylabel('Success rate');
+lgnd = legend(cellstr(num2str(c', 'c=%.1f')));
+title(lgnd,'iterations = 200');
+hold off;
+save_for_report('bonus_2_c');
 
-% figure;
-% hold on;
-% for plot_n = (1:size(c_success_rates,1))
-%     plot(alphas, c_success_rates(plot_n, :));
-% end
-% title('Success rate over alpha');
-% xlabel('Alpha = P / N');
-% ylabel('Success rate');
-% lgnd = legend(cellstr(num2str(c', 'c=%.1f')));
-% title(lgnd,'epochs = 200');
-% hold off;
-% save_for_report('bonus_2_c');
+% different epochs, fixed c
+figure;
+hold on;
+box on;
+for plot_n = (1:size(epoch_success_rates,1))
+    set(gca, 'LineStyleOrder', mrk(mod(plot_n, length(mrk))));
+    plot(alphas, epoch_success_rates(plot_n, :));
+end
+set(gca, 'FontSize', 12)
+title('Storage Success Rate', 'FontSize', 14);
+xlabel('Alpha = P / N');
+ylabel('Success rate');
+lgnd = legend(cellstr(num2str(epochs', 'iterations=%4d')));
+title(lgnd, 'c = 2');
+hold off;
+save_for_report('bonus_2_epoch');

@@ -56,11 +56,13 @@ the smaller $N$ is, the higher is the smoothing.
     \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different values of $c$.}
 	\label{fig:multiple_c}
 \end{figure}
-The first experiment we ran to try to understand the contribute of the variable $c$ in the algorithm consisted in training the perceptron for different
-values of it. As it is possible to notice in figure \ref{fig:multiple_c} the main effect is a shift to the left of the curve. This result was expected, because
-$c$ introduces a step greater than zero in order to proceed to with the update of the weights vector. What we thought is that if the value needed to perform
-the update in greater also the number of iterations needed should be greater, proposing the hypothesis that $c$ works as a simple version of the learning rate that
-we find in more complex neural networks.
+\cref{fig:multiple_c} shows the effect of changing the values of $c$ in the training procedure for the perceptron.
+For higher values of $c$, the curve is shifted to the left.
+Since an example $\xi^\mu$ is considered correctly classified only when its local potential is greater then $c$ ($E = \mathsf{\bm{w}} \cdot \xi^\mu S^\mu > c$), the potential only depends on $\mathsf{\bm{w}}$ for a fixed $\xi^\mu$ and the update of $\mathsf{\bm{w}}$ is fixed for a given wrong classified example, the perceptron will need a higher number of updates to increase the norm of $\mathsf{\bm{w}}$ and make the local potentials higher then a threshold $c > 0$.
+Formally, we can show that the value of $c > 0$ is irrelevant (provided the perceptron is trained long enough):
+\begin{equation*}
+	\mathsf{\bm{w}}_1 : \{E_1^\mu \geq c\}_{\mu = 1}^{P} \Leftrightarrow \mathsf{\bm{w}}_2 = \lambda \mathsf{\bm{w}}_1 : \{E_2^\mu \geq c\}_{\mu = 1}^{P}, \lambda > 0
+\end{equation*}
 
 \begin{figure}[t]
 	\centering
@@ -68,11 +70,9 @@ we find in more complex neural networks.
     \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of iterations with fixed value of $c=2$.}
 	\label{fig:fixed_c_multiple_epoch}
 \end{figure}
-For this reason we decided to simulate the behaviour of the curve for a given value of $c > 0$ and an increasing number of iterations. As it is possible to see
-in figure \ref{fig:fixed_c_multiple_epoch} by increasing the number of iterations we \'pushed\' the curve toward the values that we got in the original experiment shown
-in figure \ref{fig:base}, contrasting the effect of the increased value of $c$. The results we got from this experiment supported our hypothesis that $c$ behaves like
-a learning rate. In fact the algorithm reaches almost the same results for different values of the variables and consistently modified number of iterations as reported in
-figure \ref{fig:multiple_c_multiple_epoch}.
+To give an empirical proof of this, we fix the value of $c$ and train the perceptron for different number of iterations.
+We expect to see the curve shifted to the left for a small number of iterations, and approximate a step function centered in $\alpha = 2$ for a big number of iterations.
+\cref{fig:fixed_c_multiple_epoch} shows that the results of the experiment confirm our hypothesis.
 
 \begin{figure}[t]
 	\centering
@@ -80,6 +80,9 @@ figure \ref{fig:multiple_c_multiple_epoch}.
     \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of iterations and $c$.}
 	\label{fig:multiple_c_multiple_epoch}
 \end{figure}
+\cref{fig:multiple_c_multiple_epoch} compares the curves for $c = 0$ and $c = 2.0$ for different numbers of iterations:
+by increasing the iterations, the curve is ``pushed'' towards the right, contrasting the effect of the increased value of $c$.
+We can somehow see $c$ as a simple version of the learning rate that is used in more complex neural networks: it ``regulates'' the speed of the training.
 
 \subsection{Inhomogeneous Hyperplanes}
 \label{subsec:homogeneous}
@@ -89,9 +92,8 @@ figure \ref{fig:multiple_c_multiple_epoch}.
     \caption{Storage success rate of a Rosenblatt perceptron and its inhomogeneous version for $N = 500$ as a function of $\alpha = P / N$.}
 	\label{fig:homogeneous}
 \end{figure}
-
 We run an experiment to verify the behaviour of $Q_{l.s.}$ by allowing inhomogeneous hyperplanes:
-we trained both a normal and modified perceptron on $200$ different datasets using $N = 500$, $n_{max} = 200$. 
+we train both a normal and modified perceptron on $200$ different datasets using $N = 500$, $n_{max} = 200$. 
 \cref{fig:homogeneous} shows the results of the experiment.
 As expected, the success rate $Q_{l.s.}$ of the inhomogeneous perceptron is slightly higher than homogeneous one.
 However, the difference is not significant, since data points follow a normal distribution $\xi^\mu_j \sim \mathcal{N}(0,\,1)$ and are therefore distributed around the origin.

@@ -1,37 +1,26 @@
+%-------------------------------------------------------
+% Rosenblatt Perceptron Algorithm.
+% Bonus 2: influence of c.
+%-------------------------------------------------------
 
-clf; close; close; 
+% clean the workspace
+clf; close all; 
 clear;
 
 % settings
-N = 200;                      % N
-alphas = 0.75:0.125:3;       % alpha
-repetitions = 100;           % n_D
 epochs = [200, 500, 1000, 2000];               % n_max
+N = 500;                                       % N
+alphas = 0.75:0.125:3;                         % alpha
+repetitions = 100;                             % n_D
 c = [0:0.5:1 2];
 c_2 = [0,2];
-
-
 homogeneity = true;
 
 % fix seed for the random number generator
 rng(0);
 
+% experiments for different c, fixed n_max
 c_cache = 'results/bonus_2_c.mat';
-epoch_cache = 'results/bonus_2_epoch.mat';
-c_epoch_cache = 'results/bonus_2_c_epoch.mat';
-
-if (exist(c_epoch_cache, 'file'))
-    fprintf('Loading results from cache "%s"...\n', c_epoch_cache);
-    c_epoch_success_rates = importdata(c_epoch_cache);
-else
-    c_epoch_success_rates = zeros(2, length(alphas));
-    c_epoch_success_rates(1, :) = arrayfun(@(alpha) run_experiment(alpha, N, epochs(1), repetitions, c_2(1)), alphas);
-    c_epoch_success_rates(2, :) = arrayfun(@(alpha) run_experiment(alpha, N, epochs(3), repetitions, c_2(2)), alphas);
-    
-    save('results/bonus_2_c_epoch.mat', 'c_epoch_success_rates');
-end
-
-
 if (exist(c_cache, 'file'))
     fprintf('Loading results from cache "%s"...\n', c_cache);
     c_success_rates = importdata(c_cache);
@@ -51,6 +40,8 @@ else
     save('results/bonus_2_c.mat', 'c_success_rates');
 end
 
+% experiments for fixed c and different n_max
+epoch_cache = 'results/bonus_2_epoch.mat';
 if (exist(epoch_cache, 'file'))
     fprintf('Loading results from cache "%s"...\n', epoch_cache);
     epoch_success_rates = importdata(epoch_cache);
@@ -68,6 +59,19 @@ else
 
     save('results/bonus_2_epoch.mat', 'epoch_success_rates');
 end
+
+% experiments for different c and n_max
+c_epoch_cache = 'results/bonus_2_c_epoch.mat';
+if (exist(c_epoch_cache, 'file'))
+    fprintf('Loading results from cache "%s"...\n', c_epoch_cache);
+    c_epoch_success_rates = importdata(c_epoch_cache);
+else
+    c_epoch_success_rates = zeros(2, length(alphas));
+    c_epoch_success_rates(1, :) = arrayfun(@(alpha) run_experiment(alpha, N, 200, repetitions, c_2(1)), alphas);
+    c_epoch_success_rates(2, :) = arrayfun(@(alpha) run_experiment(alpha, N, 1000, repetitions, c_2(2)), alphas);    
+    save('results/bonus_2_c_epoch.mat', 'c_epoch_success_rates');
+end
+
 
 % markers for the plots
 mrk={'-o','-s','-*','-v','-+','-^'};

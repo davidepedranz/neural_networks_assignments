@@ -4,7 +4,7 @@
 %-------------------------------------------------------
 
 % clean the workspace
-clf; close; close; close; close; close; close; close; close; close; close;
+clf; close all;
 clear;
 
 % settings

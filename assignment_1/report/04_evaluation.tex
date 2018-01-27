@@ -1,5 +1,6 @@
 \section{Evaluation}
 \label{sec:evaluation}
+If not differently specified, all experiments discussed in this section are run with the following parameters: $N = 500$, $n_{max} = 200$, $n_D = 100$ and $c = 0$.
 
 \subsection{Storage Capacity}
 \label{subsec:capacity}
@@ -9,8 +10,7 @@
     \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$. The experiments use $N = 500$, $n_{max} = 200$ and $n_D = 100$.}
 	\label{fig:base}
 \end{figure}
-
-\cref{fig:base} shows the results of the base experiment using $N = 500$, $n_{max} = 200$ and $n_D = 100$.
+\cref{fig:base} shows the results of the base experiment.
 The x-axis represent different values of $\alpha = P / N$, while the y-axis the success rate $Q_{l.s.}$.
 As expected, the function looks like a step function from $1$ to $0$.
 For $\alpha \approx 1.7$, the success rate $Q_{l.s.}$ drops from $1$ to $0$ very quickly. 
@@ -40,7 +40,6 @@ The theoretical result still remains far from the practical one because of the l
     \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different values of $N$.}
 	\label{fig:multiple_n}
 \end{figure}
-
 The theoretical results are valid for $N \to \infty$.
 However, real datasets have a limited number of features.
 \cref{fig:multiple_n} shows the behaviour of the perceptron for different values of $N$.
@@ -70,8 +69,8 @@ Formally, we can show that the value of $c > 0$ is irrelevant (provided the perc
     \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of iterations with fixed value of $c=2$.}
 	\label{fig:fixed_c_multiple_epoch}
 \end{figure}
-To give an empirical proof of this, we fix the value of $c$ and train the perceptron for different number of iterations.
-We expect to see the curve shifted to the left for a small number of iterations, and approximate a step function centered in $\alpha = 2$ for a big number of iterations.
+To give an empirical proof of this, we fix the value of $c$ and train the perceptron for different number of iterations $n_{max}$.
+We expect to see the curve shifted to the left for small $n_{max}$, and approximate a step function centered in $\alpha = 2$ for big $n_{max}$.
 \cref{fig:fixed_c_multiple_epoch} shows that the results of the experiment confirm our hypothesis.
 
 \begin{figure}[t]
@@ -80,8 +79,8 @@ We expect to see the curve shifted to the left for a small number of iterations,
     \caption{Storage success rate of a Rosenblatt perceptron as a function of $\alpha = P / N$ for different numbers of iterations and $c$.}
 	\label{fig:multiple_c_multiple_epoch}
 \end{figure}
-\cref{fig:multiple_c_multiple_epoch} compares the curves for $c = 0$ and $c = 2.0$ for different numbers of iterations:
-by increasing the iterations, the curve is ``pushed'' towards the right, contrasting the effect of the increased value of $c$.
+\cref{fig:multiple_c_multiple_epoch} compares the curves for $c = 0$ and $c = 2.0$ for different values of $n_{max}$:
+by increasing $n_{max}$, the curve is ``pushed'' towards the right, contrasting the effect of the increased value of $c$.
 We can somehow see $c$ as a simple version of the learning rate that is used in more complex neural networks: it ``regulates'' the speed of the training.
 
 \subsection{Inhomogeneous Hyperplanes}
@@ -93,7 +92,7 @@ We can somehow see $c$ as a simple version of the learning rate that is used in 
 	\label{fig:homogeneous}
 \end{figure}
 We run an experiment to verify the behaviour of $Q_{l.s.}$ by allowing inhomogeneous hyperplanes:
-we train both a normal and modified perceptron on $200$ different datasets using $N = 500$, $n_{max} = 200$. 
+we train both a normal and modified perceptron on $200$ different datasets using $N = 500$, $n_{max} = 200$.
 \cref{fig:homogeneous} shows the results of the experiment.
 As expected, the success rate $Q_{l.s.}$ of the inhomogeneous perceptron is slightly higher than homogeneous one.
 However, the difference is not significant, since data points follow a normal distribution $\xi^\mu_j \sim \mathcal{N}(0,\,1)$ and are therefore distributed around the origin.

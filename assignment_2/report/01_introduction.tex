@@ -3,10 +3,11 @@
 
 Perceptrons are devices used to solve binary classification problems.
 A perceptron tries to learn a hyperplane that divides the training examples in $2$ groups, depending on their label.
-In general, if the dataset is linear separable, there are an infinite number of hyperplanes that perfectly separates the examples based on their labels.
+In general, if the dataset is linear separable, there is an infinite number of hyperplanes that perfectly separates the examples based on their labels.
 The MinOver algorithm \cite{minover} tries to find the hyperplane with the maximum stability, i.e. maximize the distance of the closest examples from the hyperplane.
 
-In this assignment, we implement the MinOver training algorithm and measured its generalization error on a linearly separable dataset as a function of the number of examples.
+In this assignment, we implement the MinOver training algorithm and measured its generalization error on a linearly separable dataset as a function of the rate between
+the number of examples and their dimension.
 We also compare its performances with the Rosenblatt algorithm \cite{rosenblatt} implemented in the previous assignment.
 Finally, we introduce different degrees of noise in the datasets and observe the performances of both algorithms.
 

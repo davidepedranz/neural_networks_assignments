@@ -12,13 +12,13 @@ Since we initialize $\bm{\mathsf{w}} = \overrightarrow{0}$, we have that the dis
     \bm{\mathsf{w}} = \overrightarrow{0} \in \mathbb{R}^N \\
     distance(\bm{\mathsf{w}}, \bm{\mathsf{w}}^*) = || \bm{\mathsf{w}} - \bm{\mathsf{w}}^* || = || \bm{\mathsf{w}}^*|| = \sqrt{N}
 \end{gather*}
-For simplicity, we chose $\bm{\mathsf{w}} = \overrightarrow{1} \in \mathbb{R}^N$.
+For simplicity, we chose $\bm{\mathsf{w}^*} = \overrightarrow{1} \in \mathbb{R}^N$.
 
 \subsection{Perceptron Training}
 To implement the MinOver algorithm we started from the code written for the Rosenblatt perceptron in the last assignment.
 As for the Rosenblatt perceptron, we initialize the weights vector of the student perceptron with zeros.
 Then, we run the training procedure for number of epochs (where $epochs = n_{max} * P$).
-At each epoch, we compute the stability of each example in the dataset (for performance reasons, we parallelize the computation as matrix operations instead of iterating over the elements in the dataset) and update the weights using the example with the minimum stability.
+At each epoch, we compute the stability of each example in the dataset (for performance reasons and to avoid the division by the norm of $\bm{\mathsf{w}}$, we parallelize the computation as matrix operations instead of iterating over the elements in the dataset) and update the weights using the example with the minimum stability.
 We terminate the training if the last update of the weights (normalized by the current norm) is smaller than a certain threshold (we chose $min_{update} = 0.001$), since the update is in practice never equal to zero for numerical problems.
 
 The algorithm differs from the Rosenblatt's one since it performs an update at each step, whether the perceptron is already giving the correct classification or not (it could not have reached the optimum stability).
